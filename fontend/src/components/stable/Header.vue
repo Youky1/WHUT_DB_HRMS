@@ -2,7 +2,7 @@
     <Header>
         <img id="logo" src="../../assets/logo.png">
         <div id="title">人力资源管理系统</div>
-        <div style="margin-left:60vw">
+        <div style="position:absolute;right:10vw">
             <a href="https://github.com/Youky1/WHUT_DB_HRMS" target="_blank">
                 Github
                 <span class="iconfont icongithub"></span>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-
+    
 }
 </script>
 
