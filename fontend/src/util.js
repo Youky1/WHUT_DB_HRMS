@@ -30,7 +30,7 @@ const postData = (url,data) => {
 // 成功提示
 function successfulTip(content){
     let dom = document.createElement('div');
-    dom.style = `position:fixed;top:100px;left:48vw;font-size:12px;
+    dom.style = `position:fixed;top:100px;left:46vw;font-size:12px;
     height:20px;display:flex;align-item:center`;
     dom.innerHTML = `<span class="iconfont iconchenggong"></span></span>${content}`
     document.body.appendChild(dom)
@@ -38,10 +38,11 @@ function successfulTip(content){
         document.body.removeChild(dom)
     },1000)
 }
+
 // 失败提示
 function failTip(content){
     let dom = document.createElement('div');
-    dom.style = `position:fixed;top:100px;left:48vw;font-size:12px;
+    dom.style = `position:fixed;top:100px;left:46vw;font-size:12px;
     height:20px;display:flex;align-item:center`;
     dom.innerHTML = `<span class="iconfont iconshibai"></span></span>${content}`
     document.body.appendChild(dom)

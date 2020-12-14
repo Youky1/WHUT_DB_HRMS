@@ -56,7 +56,7 @@ export default {
 
                         // 跳转页面
                         this.successfulTip('登录成功！')
-                        this.$router.push('index')
+                        this.$router.replace('index')
                     }else{
                         // ID/密码错误，登录出错
                         this.failTip('ID或密码错误，登录失败！')
@@ -71,7 +71,7 @@ export default {
                         // 存储当前要进行注册的ID
                         this.$store.commit('goSignup',{id:this.user_id})
                         // 跳转至信息填写页面
-                        this.$router.push('signup')
+                        this.$router.replace('signup')
                     }else{
                         this.failTip('该ID未经HR授权，无法注册！')
                         this.user_id = '';
@@ -128,7 +128,7 @@ export default {
                 .functionBtn
                     height 60%
                     width 40%
-                    border-radius 15px
+                    border-radius 5px
                 .functionBtn:hover
                     font-size 16px
                     background-color #45C8aa

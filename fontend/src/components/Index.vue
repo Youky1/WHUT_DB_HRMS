@@ -28,12 +28,26 @@ export default {
         Company
     },
     computed:{
-        ...mapState(['hrIdentity'])
+        ...mapState(['hrIdentity','postData'])
     },
     methods:{
         changeShowingComponent(com){
             this.currentComponent = com;
         }
+    },
+    mounted(){
+        this.postData('index/get_user_info',{})
+        .then(res => {
+            if(res.status){
+                console.log('get user info')
+            }
+        })
+        this.postData('index/get_company_info',{})
+        .then(res => {
+            if(res.status){
+                console.log('get company info')
+            }
+        })
     }
 }
 </script>

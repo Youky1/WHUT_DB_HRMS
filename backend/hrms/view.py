@@ -51,6 +51,21 @@ def signup(request):
     })
     return HttpResponse(res)
 
+# 获取个人信息
+def getUserInfo(request):
+    body = getBody(request)
+    res = json.dumps({
+        'status': True
+    })
+    return HttpResponse(res)
+
+# 获取公司的部门信息
+def getCompanyInfo(request):
+    body = getBody(request)
+    res = json.dumps({
+        'status': True
+    })
+    return HttpResponse(res)
 
 
 
