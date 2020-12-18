@@ -56,7 +56,7 @@ export default {
 
                         // 跳转页面
                         this.successfulTip('登录成功！')
-                        this.$router.replace('index')
+                        this.$router.push('index')
                     }else{
                         // ID/密码错误，登录出错
                         this.failTip('ID或密码错误，登录失败！')
@@ -71,7 +71,7 @@ export default {
                         // 存储当前要进行注册的ID
                         this.$store.commit('goSignup',{id:this.user_id})
                         // 跳转至信息填写页面
-                        this.$router.replace('signup')
+                        this.$router.push('signup')
                     }else{
                         this.failTip('该ID未经HR授权，无法注册！')
                         this.user_id = '';

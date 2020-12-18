@@ -28,14 +28,14 @@ export default {
         },
         toChangePassword(){
             if(this.hasLogin){
-                this.$router.replace('/change/password')
+                this.$router.push('/change/password')
             }else{
                 this.failTip('还未登录哦')
             }
         },
         toChangeInfo(){
             if(this.hasLogin){
-                this.$router.replace('/change/userinfo')
+                this.$router.push('/change/userinfo')
             }else{
                 this.failTip('还未登录哦')
             }

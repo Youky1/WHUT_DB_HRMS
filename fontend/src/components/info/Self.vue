@@ -44,7 +44,7 @@ export default {
         display flex
         flex-direction column
         align-items center
-        font-size 12px
+        font-size 16px
         #name
             height 10%
             width 40%
@@ -61,15 +61,18 @@ export default {
             align-items center
             flex-wrap: wrap;
         .infoItem
+            cursor pointer
             width 40%
-            height 30px
+            height 40px
             background-color #87CEFA
-            margin-top 40px
+            margin-top 20px
             display flex
             justify-content space-between
             align-items center
             padding-left 15px
             padding-right 15px
             border-radius 10px
-            box-shadow 5px 10px 5px 5px #777
+            box-shadow 5px 5px 5px 5px #aaa
+        .infoItem:hover
+            border 2px solid #ccc
 </style>>

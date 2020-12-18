@@ -26,7 +26,6 @@ import Signup from './components/account/Signup'
 import ChangePassword from './components/account/ChangePassword'
 import ChangeUserInfo from './components/account/ChangeUserInfo'
 import Index from './components/Index'
-import Manage from './components/Manage'
 
 const state = {
 	getData,					// get函数
@@ -44,7 +43,7 @@ const state = {
 		phone: '',
 		email: '',
 	},
-	hrIdentity:false,			// 管理员权限
+	hrIdentity:true,			// 管理员权限
 	userInfo:{					// 根据ID查询的当前用户的信息
 		name: 'name',
 		sex: '男',
@@ -58,6 +57,7 @@ const state = {
 	},
 	companyInfo:{				// 公司的部门信息
 	},
+	
 }
 
 const mutations = {
@@ -106,7 +106,6 @@ const router = new VueRouter({
 		{path:'', component:Entry},								// 首页，注册或登录
 		{path:'/signup',component:Signup},						// 填写注册的个人信息
 		{path:'/index', component:Index},						// 登录后的首页
-		{path:'/manage', component:Manage},						// HR的管理操作界面
 		{path:'/change/password',component:ChangePassword},		// 修改密码页面
 		{path:'/change/userinfo',component:ChangeUserInfo},		// 修改用户信息
 

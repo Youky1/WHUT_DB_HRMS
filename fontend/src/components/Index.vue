@@ -2,10 +2,10 @@
     <div id="totalBox">
         <div id="functionBar">
             <div class="choiceBox" @click="changeShowingComponent('Self')">个人信息</div>
-            <div class="choiceBox" @click="changeShowingComponent('Company')">公司部门介绍</div>
-            <div class="choiceBox" v-if="hrIdentity">公司管理</div>
+            <div class="choiceBox" @click="changeShowingComponent('Company')">{{departmentOperation}}</div>
+            <div class="choiceBox" @click="changeShowingComponent('Manage')" v-if="this.hrIdentity">人事管理</div>
         </div>
-        <component  :is="currentComponent"></component>
+        <component  :is="currentComponent" @changeInfo="changeShowingComponent('changeDepartmentInfo')"></component>
     </div>
 </template>
 
@@ -13,6 +13,8 @@
 import Default from './content/Default'
 import Self from './content/Self'
 import Company from './content/Company'
+import Manage from './content/Manage'
+import changeDepartmentInfo from './content/changeDepartmentInfo'
 import { mapState } from 'vuex'
 
 export default {
@@ -25,14 +27,22 @@ export default {
     components:{
         Default,
         Self,
-        Company
+        Company,
+        Manage,
+        changeDepartmentInfo
     },
     computed:{
-        ...mapState(['hrIdentity','postData'])
+        ...mapState(['hrIdentity','postData',]),
+        departmentOperation(){
+            return this.hrIdentity ? '部门管理' : '部门信息查询';
+        }
     },
     methods:{
         changeShowingComponent(com){
-            this.currentComponent = com;
+            if(com == 'changeDepartmentInfo' && !this.hrIdentity) 
+                return;
+            else
+                this.currentComponent = com;
         }
     },
     mounted(){
@@ -63,7 +73,7 @@ export default {
             display flex
             flex-direction column
             justify-content space-around
-            align-items center
+            align-items left
         .choiceBox
             width 80%
             height 20%
@@ -71,7 +81,7 @@ export default {
             justify-content center
             align-items center
             background-color #fff
-            box-shadow 15px 15px 10px 5px #777
+            box-shadow 5px 5px 5px 5px #aaa
             color #F4A460
             font-size 16px
         .choiceBox:hover

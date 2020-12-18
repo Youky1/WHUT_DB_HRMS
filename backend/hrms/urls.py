@@ -18,8 +18,6 @@ from django.contrib import admin
 from . import view
 
 urlpatterns = [
-    path('gettest',view.getTest),
-    path('posttest',view.postTest),
     path('login',view.login),
     path('signup/test',view.signupTest),
     path('signup/submit',view.signup),

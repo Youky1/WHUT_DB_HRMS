@@ -1,6 +1,6 @@
 <template>
     <div id="totalBox">
-        password
+        xiugai
     </div>
 </template>
 
