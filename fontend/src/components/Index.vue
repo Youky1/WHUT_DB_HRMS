@@ -3,15 +3,15 @@
         <div id="functionBar">
             <div class="functionTitle">信息查询</div>
             <div class="functionItem" @click="changeShowingComponent('Self')">个人信息</div>
-            <div class="functionItem" @click="changeShowingComponent('CompanyWage')">公司薪资待遇</div>
+            <div class="functionItem" @click="changeShowingComponent('CompanyWage')">薪资待遇</div>
 
             <div class="functionTitle">公司业务管理</div>
-            <div class="functionItem" @click="changeShowingComponent('ChangeDepartmentInfo')">部门信息管理</div>
-            <div class="functionItem" @click="changeShowingComponent('DepartmentInfo')">员工职位统计</div>
+            <div class="functionItem" @click="changeShowingComponent('ChangeDepartmentInfo')">部门管理</div>
+            <div class="functionItem" @click="changeShowingComponent('DepartmentInfo')">职位统计</div>
 
             <div class="functionTitle">人事管理</div>
-            <div class="functionItem" @click="changeShowingComponent('Distribution')">员工录用</div>
-            <div class="functionItem" @click="changeShowingComponent('Hire')">岗位分配</div>
+            <div class="functionItem" @click="changeShowingComponent('Hire')">员工录用</div>
+            <div class="functionItem" @click="changeShowingComponent('Distribution')">岗位分配</div>
             <div class="functionItem" @click="changeShowingComponent('Manage')">岗位调整</div>
         </div>
         <component  :is="currentComponent"></component>
@@ -64,15 +64,23 @@ export default {
         display flex
         background-color #E8EAF2
         #functionBar
-            width 20vw
+            width 15vw
             display flex
             flex-direction column
+            border-right 1px solid #777
+            background-color #fff
             .functionTitle
+                text-indent 5px
                 width 100%
-                height 40px
-                font-size 16px
+                font-size 14px
+                background-color #eee
+                margin-bottom 5px
             .functionItem
+                cursor pointer
                 width 100%
-                height 30px
                 font-size 12px
+                text-indent 15px
+                padding-bottom 10px
+            .functionItem:hover
+                background-color #ddd
 </style>>
