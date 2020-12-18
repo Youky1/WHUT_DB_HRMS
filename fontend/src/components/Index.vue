@@ -65,6 +65,7 @@ export default {
         background-color #E8EAF2
         #functionBar
             width 15vw
+            margin-right 10vw
             display flex
             flex-direction column
             border-right 1px solid #777

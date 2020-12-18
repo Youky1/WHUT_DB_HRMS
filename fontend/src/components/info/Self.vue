@@ -1,13 +1,22 @@
 <template>
     <div id="outsideBox">
-        <div id="name" v-html="name"></div>
+        <div id="name"><span class="iconfont iconadmin">{{userInfo.name}}</span></div>
         <div id="container">
-            <div class="infoItem" v-for="item in infoToShow" v-bind:key="item[1]">
+            <div class="infoItem" v-for="item in infoToShow" v-bind:key="item[0]">
                 <strong>{{item[0]}}</strong>
                 <p>{{item[1]}}</p>
             </div>
         </div>
-        
+        <div id="listTitle">
+            <div class="listItem" style="border:none">工作经历</div>
+            <div class="listItem" style="border:none">成绩</div>
+        </div>
+        <div id="experienceList">
+            <div class="experienceItem" v-for="item in userInfo.experience" :key="item.description">
+                <p class="listItem">{{item.description}}</p>
+                <p class="listItem">{{item.grade}}</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -17,13 +26,13 @@ import { getUserInfo } from '../../util'
 export default {
     data(){
         return{
-            userInfo:{},
+            userInfo:{name:'youky'},
         }
     },
     computed:{
         ...mapState(['userId']),
         name(){
-            return `<span class="iconfont iconadmin"></span>${this.userInfo.name}`
+            return ``
         },
         infoToShow(){
             let arr = ['sex','phone','email','department','position','hireDate']
@@ -52,8 +61,7 @@ export default {
 <style lang="stylus" scoped>
     #outsideBox
         height 75vh
-        width 40vw
-        margin-left 15vw
+        margin-left 10vw
         display flex
         flex-direction column
         align-items center
@@ -66,7 +74,7 @@ export default {
             align-items center
             font-size 20px
         #container
-            height 80%
+            height 55%
             width 50vw
             display flex
             flex-direction column
@@ -88,4 +96,21 @@ export default {
             box-shadow 5px 5px 5px 5px #aaa
         .infoItem:hover
             border 2px solid #ccc
-</style>>
+        #experienceList
+            height 100px
+            width 45vw
+            overflow scroll
+            .experienceItem
+                display flex
+        .listItem
+            width 50%
+            height 20px
+            font-size 12px
+            margin  0
+            border-top 1px solid #000
+            overflow hidden
+        #listTitle
+            display flex
+            width 45vw
+            margin-top 20px
+</style>

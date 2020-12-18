@@ -1,5 +1,7 @@
 /* 封装全局函数 */
 
+/* 工具函数 */
+
 // get数据函数
 const getData = url =>{
     return new Promise( resolve => {
@@ -51,6 +53,16 @@ function failTip(content){
     },1500)
 }
 
+// echarts画图函数
+const drawChart = (self,dom,option) => {
+    // 基于准备好的dom，初始化echarts实例
+    let myChart = self.$echarts.init(dom);
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+}
+
+/*  网络请求函数  */ 
+
 // 登录
 function login(data){
     return postData('login',JSON.stringify(data))
@@ -91,6 +103,7 @@ function manage(data){
     return postData('hr/manage',JSON.stringify(data))
 }
 
+
 export{
     login,
     getData,
@@ -104,4 +117,5 @@ export{
     hire,
     distribution,
     manage,
+    drawChart,
 }
