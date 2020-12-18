@@ -6,8 +6,8 @@
             <div class="functionItem" @click="changeShowingComponent('CompanyWage')">薪资待遇</div>
 
             <div class="functionTitle">公司业务管理</div>
-            <div class="functionItem" @click="changeShowingComponent('ChangeDepartmentInfo')">部门管理</div>
-            <div class="functionItem" @click="changeShowingComponent('DepartmentInfo')">职位统计</div>
+            <div class="functionItem" @click="changeShowingComponent('DepartmentInfo')">部门管理</div>
+            <div class="functionItem" @click="changeShowingComponent('PositionCount')">职位统计</div>
 
             <div class="functionTitle">人事管理</div>
             <div class="functionItem" @click="changeShowingComponent('Hire')">员工录用</div>
@@ -20,10 +20,13 @@
 
 <script>
 import Default from './stable/Default'
+
 import Self from './info/Self'
 import CompanyWage from './info/CompanyWage'
-import ChangeDepartmentInfo from './department/ChangeDepartmentInfo'
-import DepartmentInfo from './department/DepartmentInfo'
+
+import DepartmentInfo from './business/DepartmentInfo'
+import PositionCount from'./business/PositionCount'
+
 import Distribution from './hr/Distribution'
 import Hire from './hr/Hire'
 import Manage from './hr/Manage'
@@ -41,8 +44,8 @@ export default {
         Default,
         Self,
         CompanyWage,
-        ChangeDepartmentInfo,
         DepartmentInfo,
+        PositionCount,
         Distribution,
         Hire,
         Manage,
@@ -50,7 +53,7 @@ export default {
     methods:{
         changeShowingComponent(com){
             this.currentComponent = com;
-        }
+        },
     },
     mounted(){
         
@@ -65,7 +68,7 @@ export default {
         background-color #E8EAF2
         #functionBar
             width 15vw
-            margin-right 10vw
+            margin-right 5vw
             display flex
             flex-direction column
             border-right 1px solid #777

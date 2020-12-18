@@ -1,47 +1,50 @@
 <template>
     <div id="totalBox">
-        <div id="chartBox"></div>
+        <div id="countChart"></div>
     </div>
 </template>
 
 <script>
-import { getWageInfo,drawChart } from '../../util'
+import { drawChart,getWageInfo } from '../../util'
 export default {
-    name:'Manage',
     mounted(){
-        getWageInfo().then( res => {
+        getWageInfo().then(res => {
             if(res.status){
                 let source = [];
                 for(let d of res.data){
-                    source.push({position:d.name,salary:d.salary})
+                    source.push({name:d.name,'一共需要人数':d.max,'已安排人数':d.already})
                 }
                 console.log(source)
                 let option = {
-                    title:{
-                        text:'各职位薪资情况对比',
-                    },
+                    legend: {},
+                    tooltip: {},
                     dataset: {
-                        dimensions: ['position', 'salary'],
-                        source,
+                        dimensions: ['name', '一共需要人数', '已安排人数'],
+                        source
                     },
                     xAxis: {type: 'category'},
                     yAxis: {},
                     series: [
-                        {type: 'bar',color:'#EEB4B4'},
+                        {type: 'bar'},
+                        {type: 'bar'},
                     ]
                 };
-                drawChart(this,document.getElementById('chartBox'),option)
+                drawChart(this,document.getElementById('countChart'),option)
             }
         })
     },
+    data(){
+        return {}
+    }
 }
 </script>
 
 <style lang="stylus" scoped>
     #totalBox
         height 75vh
-        #chartBox
+        width 80vw
+        #countChart
             height 75vh
             width 60vw
-            padding-left 10vw
+            margin-left 10vw
 </style>

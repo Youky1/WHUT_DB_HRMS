@@ -57,7 +57,7 @@ export default {
         }
     },
     computed:{
-        ...mapState(['postData','successfulTip','failTip'])
+        ...mapState(['postData','successfulTip','failTip']),
     },
 }
 </script>
