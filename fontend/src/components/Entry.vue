@@ -13,7 +13,7 @@
                        v-model="user_password"
                 >
             </div>
-            <button id="operationBtn" @click="handleOperation">登录</button>
+            <button id="operationBtn" @click="login">登录</button>
             <div id="findBackPassword">
                 <a href="#">忘记密码？点击找回</a>
             </div>
@@ -26,7 +26,7 @@ import { mapMutations, mapState } from 'vuex';
 export default {
     name:'Entry',
     methods:{
-        handleOperation(){
+        login(){
             let user_info = {
                 id:this.user_id,
                 password:this.user_password
@@ -86,6 +86,7 @@ export default {
                 display flex
                 flex-direction column
                 align-items center
+                padding-top 10%
                 .infoInputBox
                     width 50%
                     margin-top 5%

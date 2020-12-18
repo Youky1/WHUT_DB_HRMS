@@ -9,19 +9,23 @@ import codecs
 
 # 获取request的body部分携带的信息
 def getBody(request):
-    return eval(str(request.body, encoding = "utf-8"))
+    return json.loads(eval(str(request.body, encoding = "utf-8")))
 
 # 登录函数
 def login(request):
     body = getBody(request)
+    print(body.keys())
     # 检验登录是否能完成
-    
-    res = json.dumps({
-        'status': True
-    })
+    if(body['id'] == 'root' and body['password'] == '123456'):
+        res = json.dumps({
+            'status': True
+        })
+    else:
+        res = json.dumps({
+            'status': False
+        })
     return HttpResponse(res)
 
-# 
 
 # 获取个人信息
 def getUserInfo(request):

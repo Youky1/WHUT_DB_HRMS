@@ -29,8 +29,8 @@ const state = {
 	postData,					// post函数
 	successfulTip,				// 成功提示框函数
 	failTip,					// 失败提示框函数
-	
-	hasLogin:false,				// 登录状态：是否已经登录
+
+	userId:'',					// 当前用户的ID
 	userInfo:{					// 根据ID查询的当前用户的信息
 		name: 'name',
 		sex: '男',
@@ -50,9 +50,7 @@ const state = {
 const mutations = {
 	// 登录
 	login(state,payload){
-		state.userId = payload.user_id;
-		state.userPassword = payload.user_password;
-		state.hasLogin = true;
+		state.userId = payload.id;
 	},
 }
 
