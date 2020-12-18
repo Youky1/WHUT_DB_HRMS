@@ -23,6 +23,7 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+import { login as goLogin} from '../util'
 export default {
     name:'Entry',
     methods:{
@@ -31,7 +32,7 @@ export default {
                 id:this.user_id,
                 password:this.user_password
             }
-            this.postData('login',JSON.stringify(user_info))
+            goLogin(user_info)
             .then(res => {
                 if(res.status){
                     // 存储登录信息

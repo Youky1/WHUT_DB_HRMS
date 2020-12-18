@@ -13,6 +13,4 @@ export default {
 <style lang="stylus" scoped>
     #totalBox
         height 75vh
-        width 40vw
-        margin-left 15vw
 </style>

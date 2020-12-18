@@ -2,7 +2,7 @@
     <div id="outsideBox">
         <div id="name" v-html="name"></div>
         <div id="container">
-            <div class="infoItem" v-for="item in infoToShow" v-bind:key="item[1].手机号">
+            <div class="infoItem" v-for="item in infoToShow" v-bind:key="item[1]">
                 <strong>{{item[0]}}</strong>
                 <p>{{item[1]}}</p>
             </div>
@@ -13,26 +13,39 @@
 
 <script>
 import { mapState } from 'vuex'
+import { getUserInfo } from '../../util'
 export default {
     data(){
         return{
+            userInfo:{},
         }
     },
     computed:{
-        ...mapState(['userInfo','hrIdentity']),
+        ...mapState(['userId']),
         name(){
-            return `<span class="iconfont ${this.hrIdentity ? 'iconadmin': 'iconyuangong'}"></span>${this.userInfo.name}`
+            return `<span class="iconfont iconadmin"></span>${this.userInfo.name}`
         },
         infoToShow(){
-            let arr = ['sex','phone','email','department','position','hireDate','workExperience','achievement']
-            let obj = ['性别','手机号','邮箱','部门','职位','招聘日期','工作经验','评分'];
+            let arr = ['sex','phone','email','department','position','hireDate']
+            let obj = ['性别','手机号','邮箱','部门','职位','招聘日期'];
             let result = []
             for(let index in arr){
                 result.push([ obj[index],this.userInfo[ arr[index] ] ])
             }
+            console.log(result)
             return result
         }
     },
+    mounted(){
+        getUserInfo(this.userId)
+        .then(res => {
+            if(res.status){
+                this.userInfo = res.data;
+            }else{
+                console.log('查找个人信息失败')
+            }
+        })
+    }
 }
 </script>
 

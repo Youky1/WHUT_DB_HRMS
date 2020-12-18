@@ -25,26 +25,9 @@ import Entry from './components/Entry'
 import Index from './components/Index'
 
 const state = {
-	getData,					// get函数
-	postData,					// post函数
 	successfulTip,				// 成功提示框函数
 	failTip,					// 失败提示框函数
-
 	userId:'',					// 当前用户的ID
-	userInfo:{					// 根据ID查询的当前用户的信息
-		name: 'name',
-		sex: '男',
-		phone: '15623687738',
-		email: 'youkyf@qq.com',
-        department:'计算机1803',
-        position:'学生',
-        hireDate:'2018.9.8',
-        workExperience:[{},{},{},{}],
-	},
-	departmentInfo:[
-		{},{},{}
-	]							// 公司的部门信息
-	
 }
 
 const mutations = {
@@ -63,7 +46,6 @@ const router = new VueRouter({
 	routes:[
 		{path:'', component:Entry},								// 登录页面
 		{path:'/index', component:Index},						// 登录后的首页
-
 	]
 })
 

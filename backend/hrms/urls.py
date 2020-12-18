@@ -19,6 +19,11 @@ from . import view
 
 urlpatterns = [
     path('login',view.login),
-    path('index/get_user_info',view.getUserInfo),
-    path('index/get_company_info',view.getCompanyInfo),
+    path('info/user',view.getUserInfo),
+    path('info/wage',view.getWageInfo),
+    path('department/info',view.getDepartmentInfo),
+    path('department/change',view.changeDepartmentInfo),
+    path('hr/hire',view.hire),
+    path('hr/manage',view.manage),
+    path('hr/distribution',view.distribution)
 ]

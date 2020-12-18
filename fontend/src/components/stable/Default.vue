@@ -12,9 +12,7 @@ export default {
     computed:{
         ...mapState(['hrIdentity']),
         identity(){
-            return this.hrIdentity ? `管理员<span class='iconfont iconadmin'></span>`
-                                   : `员工<span class='iconfont iconyuangong'></span>`
-            
+            return `管理员<span class='iconfont iconadmin'></span>`
         },
         date(){
             let now = new Date();

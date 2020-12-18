@@ -7,8 +7,15 @@
 
 ## 运行
 
-- backend目录下，python manage.py runserver启动后端服务器
-- fontend目录下，npm run serve启动前端服务器
+- backend目录下启动后端服务器:
+
+```
+  python manage.py runserver
+```
+- fontend目录下启动前端服务器:
+```
+  npm run serve
+```
 
 ## 三大核心功能
 
@@ -47,10 +54,15 @@
 - position表：公司各职位信息
   > 主码为Position_id，一个id对应一个职位
 - employee表：已录用的员工信息
+  > （Employee_id,Sex,Name,Email,Phone,Hiredate,Work_experience）
+  
   > 主码为Employee_id，一个id对应一个员工
 - experience表：员工的工作经验
-  > 主码为ID，一个员工ID对应任意条工作经验
+  > （ID,description,grade）一个员工ID对应任意条工作经验
 
 ## 数据库的修改
-- employee表中的status属性去掉
+
+- 各个表的属性名格式统一：大写开头，单词间用下划线隔开
+- employee表中的status属性去掉，Employee_id改为按顺序的数字，这样在插入的时候方便生成新的id
 - position表中已有的Post_number表示每个职位最多人数，新加一个Post_already属性表示该岗位已有多少人
+- department表的Manager_id设置一个表示暂无的值，如0000

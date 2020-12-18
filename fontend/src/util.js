@@ -51,9 +51,57 @@ function failTip(content){
     },1500)
 }
 
+// 登录
+function login(data){
+    return postData('login',JSON.stringify(data))
+}
+
+// 获取个人信息
+function getUserInfo(id){
+    return postData('info/user',JSON.stringify({id}))
+}
+
+// 获取公司的职位信息
+function getWageInfo(){
+    return getData('info/wage')
+}
+
+// 获取公司各个部门的信息
+function getDepartmentInfo(){
+    return getData('department/info');
+}
+
+// 修改某个部门的信息
+function changeDepartmentInfo(info){
+    return postData('department/change',JSON.stringify(info))
+}
+
+// 录用新员工
+function hire(data){
+    return postData('hr/hire',JSON.stringify(data))
+}
+
+// 为员工分配岗位
+function distribution(data){
+    return postData('hr/distribution',JSON.stringify(data))
+}
+
+// 调整员工的岗位
+function manage(data){
+    return postData('hr/manage',JSON.stringify(data))
+}
+
 export{
+    login,
     getData,
     postData,
     successfulTip,
     failTip,
+    getUserInfo,
+    getWageInfo,
+    getDepartmentInfo,
+    changeDepartmentInfo,
+    hire,
+    distribution,
+    manage,
 }
