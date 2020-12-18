@@ -19,8 +19,6 @@ from . import view
 
 urlpatterns = [
     path('login',view.login),
-    path('signup/test',view.signupTest),
-    path('signup/submit',view.signup),
     path('index/get_user_info',view.getUserInfo),
     path('index/get_company_info',view.getCompanyInfo),
 ]

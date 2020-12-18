@@ -1,20 +1,22 @@
 <template>
     <div id="totalBox">
         <div id="functionBar">
-            <div class="choiceBox" @click="changeShowingComponent('Self')">个人信息</div>
-            <div class="choiceBox" @click="changeShowingComponent('Company')">{{departmentOperation}}</div>
-            <div class="choiceBox" @click="changeShowingComponent('Manage')" v-if="this.hrIdentity">人事管理</div>
+            
         </div>
         <component  :is="currentComponent" @changeInfo="changeShowingComponent('changeDepartmentInfo')"></component>
     </div>
 </template>
 
 <script>
-import Default from './content/Default'
-import Self from './content/Self'
-import Company from './content/Company'
-import Manage from './content/Manage'
-import changeDepartmentInfo from './content/changeDepartmentInfo'
+import Default from './stable/Default'
+import Self from './info/Self'
+import CompanyWage from './info/CompanyWage'
+import ChangeDepartmentInfo from './business/ChangeDepartmentInfo'
+import DepartmentInfo from './business/DepartmentInfo'
+import Distribution from './hr/Distribution'
+import Hire from './hr/Hire'
+import Manage from './hr/Manage'
+
 import { mapState } from 'vuex'
 
 export default {
@@ -27,9 +29,12 @@ export default {
     components:{
         Default,
         Self,
-        Company,
+        CompanyWage,
+        ChangeDepartmentInfo,
+        DepartmentInfo,
+        Distribution,
+        Hire,
         Manage,
-        changeDepartmentInfo
     },
     computed:{
         ...mapState(['hrIdentity','postData',]),
@@ -67,27 +72,5 @@ export default {
         height 75vh
         display flex
         background-color #E8EAF2
-        #functionBar
-            width 30vw
-            height 100%
-            display flex
-            flex-direction column
-            justify-content space-around
-            align-items left
-        .choiceBox
-            width 80%
-            height 20%
-            display flex
-            justify-content center
-            align-items center
-            background-color #fff
-            box-shadow 5px 5px 5px 5px #aaa
-            color #F4A460
-            font-size 16px
-        .choiceBox:hover
-            width 82%
-            height 22%
-            cursor pointer
-            background-color #ccc
-            font-size 22px
+       
 </style>>
