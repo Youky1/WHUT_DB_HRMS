@@ -12,14 +12,14 @@ export default {
             if(res.status){
                 let source = [];
                 for(let d of res.data){
-                    source.push({name:d.name,'一共需要人数':d.max,'已安排人数':d.already})
+                    source.push({name:d.name,'共需要':d.max,'已安排':d.already})
                 }
                 console.log(source)
                 let option = {
                     legend: {},
                     tooltip: {},
                     dataset: {
-                        dimensions: ['name', '一共需要人数', '已安排人数'],
+                        dimensions: ['name', '共需要', '已安排'],
                         source
                     },
                     xAxis: {type: 'category'},

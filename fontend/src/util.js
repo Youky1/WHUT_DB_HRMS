@@ -93,6 +93,11 @@ function hire(data){
     return postData('hr/hire',JSON.stringify(data))
 }
 
+// 获取全部员工的信息
+function getAllStaffInfo(){
+    return getData('hr/staff')
+}
+
 // 为员工分配岗位
 function distribution(data){
     return postData('hr/distribution',JSON.stringify(data))
@@ -118,4 +123,5 @@ export{
     distribution,
     manage,
     drawChart,
+    getAllStaffInfo,
 }

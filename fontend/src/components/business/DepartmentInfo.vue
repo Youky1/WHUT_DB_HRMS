@@ -11,9 +11,23 @@
         </div>
         
         <div id="infoChart" v-if="changeNow">
-            <input type="text" v-model="currentDepartment.name">
-            <input type="text" v-model="currentDepartment.description">
-            <button id="changeBtn">提交修改</button>
+            <div>
+                <p>部门名称</p>
+                <input type="text" v-model="currentDepartment.name">
+            </div>
+            <div>
+                <p>部门主管</p>
+                <select id="managerContainer">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div>
+                <p>部门事务</p>
+                <input type="text" v-model="currentDepartment.description">
+            </div>
+            
+            
+            <button id="changeBtn" @click="submit">提交修改</button>
         </div>
     </div>
 </template>
@@ -28,14 +42,16 @@ export default {
                             {departmentId:'4', name:'管理部门',host:'艾弗森',description:'管理公司日常事务'},
                         ],
             currentDepartment:{},
-            changeNow:false
+            changeNow:false,
+            
         }
     },
     methods:{
         changeInfo(part){
-            this.currentDepartment = part
-            this.changeNow = true
-        }
+            this.currentDepartment = part;
+            this.changeNow = true;
+        },
+        submit(){}
     },
 }
 </script>
@@ -97,4 +113,6 @@ export default {
                 border-radius 20px
                 outline none
                 cursor pointer
+            #managerContainer
+                width 15vw
 </style>

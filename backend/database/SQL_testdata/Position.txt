@@ -1,8 +1,8 @@
-Position_id,Position_rank,Position_name,Salary,Post_number
-A1,1,管理员,3000,0
-B1,2,总经理,8000,1
-C1,3,部门经理,5000,3
-D1,4,组长,4000,2
-E1,5,普通员工,3200,10
-F1,6,试用员工,2000,5
-G1,7,待分配,0,0
+Position_id,Position_rank,Position_name,Salary,Post_number,Post_already
+A1,1,管理员,3000,0,0
+B1,2,总经理,8000,1,0
+C1,3,部门经理,5000,3,0
+D1,4,组长,4000,2,0
+E1,5,普通员工,3200,10,0
+F1,6,试用员工,2000,5,0
+G1,7,待分配,0,100000,0

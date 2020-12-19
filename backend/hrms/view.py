@@ -14,7 +14,7 @@ def getBody(request):
 def login(request):
     body = getBody(request)
     # 检验登录是否能完成
-    if(body['id'] == 'root' and body['password'] == '123456'):
+    if(body['password'] == '123456'):
         res = json.dumps({
             'status': True
         })
@@ -24,40 +24,109 @@ def login(request):
         })
     return HttpResponse(res)
 
+# 信息查询接口
+
 # 获取个人信息
 def getUserInfo(request):
     body = getBody(request)
     res = json.dumps({
         'status': True,
         'data':{
-            'name':'success'
+            'name':'youky',
+            'sex':'男',
+            'phone':'15623687738',
+            'email':'youkyf@qq.com',
+            'department':'jsj1803',
+            'position':'student',
+            'hireDate':'2018.9',
+            'experience':[{'description':'小学','grade':90},{'description':'中学','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90}]
         }
     })
     return HttpResponse(res)
 
-# 获取公司的部门信息
-def getWageInfo(request):
-    body = getBody(request)
+# 获取公司的岗位信息
+def getPositionInfo(request):
     res = json.dumps({
-        'status': True
+        'status': True,
+        'data':[{'id':'A1','rank':'1','name':'管理员','salary':'20000','max':3,'already':1},
+                {'id':'B1','rank':'2','name':'总经理','salary':'16000','max':4,'already':2},
+                {'id':'C1','rank':'3','name':'部门经理','salary':'12000','max':5,'already':3},
+                {'id':'D1','rank':'4','name':'组长','salary':'10000','max':10,'already':8},]
     })
     return HttpResponse(res)
 
+
+#  部门管理接口
+
 # 获取部门信息
 def getDepartmentInfo(request):
-    pass
+    res = json.dumps({
+        'status': True,
+        'data':[{'id':'1','name':'技术部门','managerId':'001','affairs':'技术'},
+                {'id':'2','name':'宣传部门','managerId':'002','affairs':'技术'},
+                {'id':'3','name':'管理部门','managerId':'003','affairs':'技术'},
+                {'id':'4','name':'组织部门','managerId':'004','affairs':'技术'},]
+    })
+    return HttpResponse(res)
 
 # 更改部门信息
 def changeDepartmentInfo(request):
     pass
 
+
+#  人事管理接口
+
 # 录用员工
 def hire(request):
-    pass
+    body = getBody(request)
+    res = json.dumps({
+        'status':True,
+    })
+    return HttpResponse(res)
+
+def getAllStaffInfo(request):
+    res = json.dumps({
+        'status':True,
+        'data':[{
+            'id':'01',
+            'name':'youky',
+            'sex':'男',
+            'phone':'15623687738',
+            'email':'youkyf@qq.com',
+            'department':'jsj1803',
+            'position':'student',
+            'hireDate':'2018.9',
+            'experience':[{'description':'小学啊实打实大所大所','grade':90},{'description':'中学','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90}]
+        },{
+            'id':'02',
+            'name':'youky',
+            'sex':'男',
+            'phone':'15623687738',
+            'email':'youkyf@qq.com',
+            'department':'jsj1803',
+            'position':'student',
+            'hireDate':'2018.9',
+            'experience':[{'description':'小学','grade':90},{'description':'中学','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90}]
+        },{
+            'id':'03',
+            'name':'youky',
+            'sex':'男',
+            'phone':'15623687738',
+            'email':'youkyf@qq.com',
+            'department':'jsj1803',
+            'position':'student',
+            'hireDate':'2018.9',
+            'experience':[{'description':'小学','grade':90},{'description':'中学','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90}]
+        }]
+    })
+    return HttpResponse(res)
 
 # 为员工分配岗位
 def distribution(request):
-    pass
+    res = json.dumps({
+        'status': True,
+    })
+    return HttpResponse(res)
 
 # 调整员工的岗位
 def manage(request):

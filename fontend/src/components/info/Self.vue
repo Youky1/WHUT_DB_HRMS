@@ -36,7 +36,7 @@ export default {
         },
         infoToShow(){
             let arr = ['sex','phone','email','department','position','hireDate']
-            let obj = ['性别','手机号','邮箱','部门','职位','招聘日期'];
+            let obj = ['性别','电话','邮箱','部门','职位','招聘日期'];
             let result = []
             for(let index in arr){
                 result.push([ obj[index],this.userInfo[ arr[index] ] ])
@@ -99,7 +99,7 @@ export default {
         #experienceList
             height 100px
             width 45vw
-            overflow scroll
+            overflow-y scroll
             .experienceItem
                 display flex
         .listItem

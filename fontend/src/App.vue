@@ -17,7 +17,7 @@ import VueRouter from 'vue-router'
 Vue.use(Vuex);
 Vue.use(VueRouter);
 
-import {getData,postData,successfulTip,failTip} from './util.js'
+import {successfulTip,failTip} from './util.js'
 
 import Header from './components/stable/Header'
 import Footer from './components/stable/Footer'
