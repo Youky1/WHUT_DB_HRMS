@@ -3,26 +3,26 @@
         <div id="basicInfo">
             <div class="line">
                 <p class="key">姓名</p>
-                <input class="value" type="text" v-model="info.name">
+                <input class="value" type="text" v-model="info.Name">
             </div>
             <div class="line">
                 <p class="key">性别</p>
-                <select class="value" v-model="info.sex">
+                <select class="value" v-model="info.Sex">
                     <option value="男">男</option>
                     <option value="女">女</option>
                 </select>
             </div>
             <div class="line">
                 <p class="key">手机号</p>
-                <input class="value" type="text" v-model="info.phone">
+                <input class="value" type="text" v-model="info.Phone">
             </div>
             <div class="line">
                 <p class="key">邮箱</p>
-                <input class="value" type="text" v-model="info.email">
+                <input class="value" type="text" v-model="info.Email">
             </div>
             <div class="line">
                 <p class="key">聘用日期</p>
-                <input class="value" type="text" v-model="info.hireDate">
+                <input class="value" type="text" v-model="info.Hire_date">
             </div>
         </div>
         <div id="experienceInfo">
@@ -32,13 +32,10 @@
                 <p class="value" style="border:none">成绩</p>
             </div>
             
-            <div style="margin-bottom:20px"  v-for="e in info.experience" :key="e.description">
-                <div class="line">
-                    <input type="text" class="value">
-                    <input type="text" class="value">
-                </div>
+            <div class="line" style="margin-bottom:20px"  v-for="e in info.Work_experience" :key="e.ID">
+                <input type="text" class="value" v-model="e.Work_experience">
+                <input type="text" class="value" v-model="e.Achievement">
             </div>
-            
 
             <div id="btnContainer">
                 <button @click="add">添加</button>
@@ -56,15 +53,7 @@ export default {
     name:'Manage',
     data(){
         return{
-            info:{
-                name:'',
-                sex:'',
-                phone:'',
-                email:'',
-                hireDate:'',
-                experience:[],
-            },
-            ex_num:0,
+            info:{Sex:"",Name:"",Email:"",Phone:"",Hire_date:"",Work_experience:[]},
         }
     },
     computed:{
@@ -72,18 +61,17 @@ export default {
     },
     methods:{
         add(){
-            if(this.info.experience.length > 4){
+            if(this.info.Work_experience.length > 4){
                 this.failTip('工作记录最多五条')
                 return;
             }
-            this.info.experience.push({
-                description:'',
-                grade:''
+            this.info.Work_experience.push({
+                Work_experience:'',
+                Achievement:''
             })
         },
         confirmHire(){
-            hire(this.info)
-            .then( res => {
+            hire(this.info).then( res => {
                 if(res.status){
                     this.successfulTip('录用成功！')
                     for(let key of Object.keys(this.info)){

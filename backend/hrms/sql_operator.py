@@ -292,7 +292,7 @@ def login(db,**kwargs):
             return False
 
 """ 
-    根据id换成对应的name 【供部门id和职位id的兑换使用】
+    根据id换成对应的name 【供部门id和职位id和雇员id的兑换使用】
     传入参数：表名，id
     返回数据：name
 """
@@ -307,6 +307,9 @@ def id_name(db,table_name,id):
                 return Name
             elif table_name == 'department':
                 Name = infos[index][1]
+                return Name
+            elif table_name == 'user_info':
+                Name = infos[index][2]
                 return Name
             else:
                 return None
@@ -399,7 +402,7 @@ def updateinfo(db,**kwargs):
         若分配成功，返回True
         若分配不成功，返回False
 '''
-def hire(db,**kwargs):
+def hire(db,kwargs):
     # 修改Employee表的信息：
     employee_infos = search_table_info(db, "employee")
     lenth = len(employee_infos)
@@ -440,73 +443,6 @@ def hire(db,**kwargs):
         return True
     else:
         return False
-
-'''
-    增加部门
-    传入参数；{Department_name,Manager_id,Affairs}
-    首先查询department表
-        若department_name已存在，返回False
-        若不存在，根据department表中已有记录的数目，分配一个Department_id，
-        将{Department_id,Department_name,Manager_id,Affairs}插入department表，返回True
-'''
-def addDepartment(db,**kwargs):
-    # 获取部门名字
-    department_infos = search_table_info(db, "department")
-    department_name_all = [rowdata[1] for rowdata in department_infos]  # 得到用户名
-    if kwargs['Department_name'] in department_name_all:
-        return False
-    else:
-        number = len(department_name_all)
-        Department_info = {}
-        Department_info['id'] = number+1
-        for key, value in kwargs.items():
-            Department_info[key] = value
-        if insert_alltable_info(db, "department", **Department_info):
-            return True
-        else:
-            return False
-
-'''
-    解散部门
-    传入参数：{Department_name}
-    首先查询department表
-        若department_name不存在，返回False
-        若存在：
-            删除该条记录；
-            并在Employee表中按该部门的Manager_id查找用户，将其position改为普通员工；
-            返回True
-'''
-def deleteDepartment(db,**kwargs):
-    # 获取部门表
-    department_infos = search_table_info(db, "department")
-    department_name_all = [rowdata[1] for rowdata in department_infos]
-
-    for index, department_name in enumerate(department_name_all):
-        if department_name == kwargs['Department_name']:  # 根据Department_name查询到该条记录
-            # 删除数据
-            Department_id = department_infos[index][0]
-            if delete_table_info(db,'department','Department_name',department_name):
-                # 修改Employee表的信息： 1、找到属于该部门的所有员工
-                employee_infos = search_table_info(db, "employee")
-                employee_departmentid_all = [rowdata[1] for rowdata in employee_infos]
-                # employee_posiontionid_all = [rowdata[2] for rowdata in employee_infos]
-                for inde, department_id in enumerate(employee_departmentid_all):
-                    if department_id == Department_id:
-                        # 2、修改他们的职位为G1
-                        if update_table_info(db, "employee", 'Position_id','G1', 'Department_id',department_id) and update_table_info(db, "employee", 'Department_id',str(0), 'Department_id',department_id):
-                            continue
-                        else:
-                            return False
-
-                # 修改部门的id
-                for i in range(len(department_name_all)-index-1):
-                    if update_table_info(db, "department", 'Department_id', str(int(department_infos[index+i][0])-1), 'Department_id',department_infos[index+i][0]):
-                        continue
-                    else:
-                        return False
-                return True
-    return False
-
 
 '''
     获取部门信息
@@ -751,6 +687,10 @@ def getSomeStaff(db, kwargs):
                     key = 'Position_name'
                     position_name = id_name(db,'position2',employee_infos[i][j])
                     temp[key] = position_name
+                elif key == 'Employee_id':
+                    temp[key] = employee_infos[i][j]
+                    Employee_name = id_name(db, 'user_info', employee_infos[i][j])
+                    temp['Employee_name'] = Employee_name
                 elif  key == 'Department_id':
                     key = 'Department_name'
                     department_name = id_name(db,'department',employee_infos[i][j])
@@ -761,7 +701,7 @@ def getSomeStaff(db, kwargs):
         return {'status':True,'data':data}
 
 if __name__ == '__main__':
-
+    pass
     # """ 注册检验 """
     # # if signUpPermissionTest(db, **{"id":'0001','password':'123'}):
     # #     print("该用户名已存在")
@@ -827,22 +767,18 @@ if __name__ == '__main__':
 
     # """ 查询某个部门的员工 """
     # getSomeStaff(db, **{'Department_id':'3'})
-    update_table_info(db, "position2","Post_number",3,"Position_id",'A1')
-    update_table_info(db, "position2","Post_number",4,"Position_id",'B1')
-    update_table_info(db, "position2","Post_number",5,"Position_id",'C1')
-    update_table_info(db, "position2","Post_number",6,"Position_id",'D1')
-    update_table_info(db, "position2","Post_number",7,"Position_id",'E1')
-    update_table_info(db, "position2","Post_number",8,"Position_id",'F1')
-    update_table_info(db, "position2","Post_number",0,"Position_id",'G1')
+    # update_table_info(db, "position2","Post_number",3,"Position_id",'A1')
+    # update_table_info(db, "position2","Post_number",4,"Position_id",'B1')
+    # update_table_info(db, "position2","Post_number",5,"Position_id",'C1')
+    # update_table_info(db, "position2","Post_number",6,"Position_id",'D1')
+    # update_table_info(db, "position2","Post_number",7,"Position_id",'E1')
+    # update_table_info(db, "position2","Post_number",8,"Position_id",'F1')
+    # update_table_info(db, "position2","Post_number",0,"Position_id",'G1')
 
-    update_table_info(db, "position2","Post_already",1,"Position_id",'A1')
-    update_table_info(db, "position2","Post_already",3,"Position_id",'B1')
-    update_table_info(db, "position2","Post_already",3,"Position_id",'C1')
-    update_table_info(db, "position2","Post_already",6,"Position_id",'D1')
-    update_table_info(db, "position2","Post_already",5,"Position_id",'E1')
-    update_table_info(db, "position2","Post_already",3,"Position_id",'F1')
-    update_table_info(db, "position2","Post_already",0,"Position_id",'G1')
-
-
-
-
+    # update_table_info(db, "position2","Post_already",1,"Position_id",'A1')
+    # update_table_info(db, "position2","Post_already",3,"Position_id",'B1')
+    # update_table_info(db, "position2","Post_already",3,"Position_id",'C1')
+    # update_table_info(db, "position2","Post_already",6,"Position_id",'D1')
+    # update_table_info(db, "position2","Post_already",5,"Position_id",'E1')
+    # update_table_info(db, "position2","Post_already",3,"Position_id",'F1')
+    # update_table_info(db, "position2","Post_already",0,"Position_id",'G1')

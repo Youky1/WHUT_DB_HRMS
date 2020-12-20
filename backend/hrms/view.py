@@ -69,10 +69,12 @@ def changeDepartmentInfo(request):
 #  人事管理接口
 
 # 录用员工
-def hire(request):
+def hireNewStaff(request):
     body = getBody(request)
+    print(body)
+    status = hire(db,body)
     res = json.dumps({
-        'status':True,
+        'status':status,
     })
     return HttpResponse(res)
 

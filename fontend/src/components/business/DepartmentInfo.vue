@@ -18,7 +18,7 @@
             <div class="part">
                 <p>部门主管</p>
                 <select id="managerContainer" v-model="currentDepartment.Manager">
-                    <option v-for="staff in staffOfCurrentDepartment" :key="staff.id" :value="staff.Employee_id">{{staff.Employee_id}}</option>
+                    <option v-for="staff in staffOfCurrentDepartment" :key="staff.id" :value="staff.Employee_id">{{staff.Employee_name}}</option>
                 </select>
             </div>
             <div class="part">
