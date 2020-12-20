@@ -75,7 +75,7 @@ function getUserInfo(ID){
 
 // 获取公司的职位信息
 function getWageInfo(){
-    return getData('info/wage')
+    return postData('info/wage',JSON.stringify({}))
 }
 
 // 获取公司各个部门的信息

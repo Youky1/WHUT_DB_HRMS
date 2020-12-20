@@ -24,7 +24,7 @@ def login(request):
 
 # 信息查询接口
 
-# 获取个人信息
+# 获取个人信息+
 def getUserInfo(request):
     body = getBody(request)
     res = json.dumps(getUserinfo(db,kwargs = body))
@@ -32,14 +32,9 @@ def getUserInfo(request):
     return HttpResponse(res)
 
 # 获取公司的岗位信息
-def getPositionInfo(request):
-    res = json.dumps({
-        'status': True,
-        'data':[{'id':'A1','rank':'1','name':'管理员','salary':'20000','max':3,'already':1},
-                {'id':'B1','rank':'2','name':'总经理','salary':'16000','max':4,'already':2},
-                {'id':'C1','rank':'3','name':'部门经理','salary':'12000','max':5,'already':3},
-                {'id':'D1','rank':'4','name':'组长','salary':'10000','max':10,'already':8},]
-    })
+def getWageInfo(request):
+    res = json.dumps(getPositionInfo(db))
+    print('res is ',res)
     return HttpResponse(res)
 
 

@@ -4,6 +4,8 @@ import pymysql
 import re
 import time
 import codecs
+import sys
+sys.setrecursionlimit(1500)
 
 
 """ 连接数据库 """
@@ -95,10 +97,8 @@ def insert_alltable_info(db, table,filename):
 
 def search_table_info(db,table):
     sql = 'SELECT * FROM {}'.format(table)
-    print('++++++++',db,'+++++++')
     try:
         cur = db.cursor()
-        
         if (table_exists(cur, table)):
             cur.execute(sql)
             result = cur.fetchall()

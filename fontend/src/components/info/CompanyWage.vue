@@ -13,7 +13,7 @@ export default {
             if(res.status){
                 let source = [];
                 for(let d of res.data){
-                    source.push({position:d.name,salary:d.salary})
+                    source.push({position:d.Position_name,salary:d.Salary})
                 }
                 console.log(source)
                 let option = {

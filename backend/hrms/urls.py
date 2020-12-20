@@ -20,7 +20,7 @@ from . import view
 urlpatterns = [
     path('login',view.login),
     path('info/user',view.getUserInfo),
-    path('info/wage',view.getPositionInfo),
+    path('info/wage',view.getWageInfo),
     path('department/info',view.getDepartmentInfo),
     path('department/change',view.changeDepartmentInfo),
     path('hr/hire',view.hire),
