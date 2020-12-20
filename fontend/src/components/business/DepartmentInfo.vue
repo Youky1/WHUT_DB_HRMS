@@ -1,58 +1,94 @@
 <template>
     <div id="outsideBox">
         <div id="infoBox">
-            <div class="departmentInfo" v-for="part in departmentInfo" v-bind:key="part.departmentId" @dblclick="changeInfo(part)">
+            <div class="departmentInfo" v-for="part in departmentInfo" v-bind:key="part.Department_id" @dblclick="changeInfo(part)">
                 <div id="line">
-                    <p id="name">{{part.name}}</p>
-                    <p id="host">主管：<span>{{part.host}}</span></p>
+                    <p id="name">{{part.Department_name}}</p>
+                    <p id="host">主管：<span>{{part.Manager}}</span></p>
                 </div>
-                <div id="description">{{part.description}}</div>
+                <div id="description">{{part.Affairs}}</div>
             </div>
         </div>
         
         <div id="infoChart" v-if="changeNow">
-            <div>
+            <div class="part">
                 <p>部门名称</p>
-                <input type="text" v-model="currentDepartment.name">
+                <input type="text" v-model="currentDepartment.Department_name">
             </div>
-            <div>
+            <div class="part">
                 <p>部门主管</p>
-                <select id="managerContainer">
-                    <option value=""></option>
+                <select id="managerContainer" v-model="currentDepartment.Manager">
+                    <option v-for="staff in staffOfCurrentDepartment" :key="staff.id" :value="staff.Employee_id">{{staff.Employee_id}}</option>
                 </select>
             </div>
-            <div>
+            <div class="part">
                 <p>部门事务</p>
-                <input type="text" v-model="currentDepartment.description">
+                <input type="text" v-model="currentDepartment.Affairs">
+            </div>
+            <div class="part">
+                <button class="hideBtn" @click="submit">修改</button>
+                <button class="hideBtn" @click="cancel">取消</button>
             </div>
             
-            
-            <button id="changeBtn" @click="submit">提交修改</button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { getDepartmentInfo, getAllStaffInfo, getStaffByDepartment, changeDepartmentInfo } from '../../util'
 export default {
     data(){
         return{
-            departmentInfo:[{departmentId:'1', name:'管理部门',host:'阿萨德',description:'管理公司日常事务'},
-                            {departmentId:'2', name:'管理部门',host:'请问',description:'管理公司日常事务'},
-                            {departmentId:'3', name:'管理部门',host:'自行车',description:'管理公司日常事务'},
-                            {departmentId:'4', name:'管理部门',host:'艾弗森',description:'管理公司日常事务'},
-                        ],
+            departmentInfo:[],
             currentDepartment:{},
             changeNow:false,
-            
+            staffOfCurrentDepartment:[],
         }
     },
     methods:{
         changeInfo(part){
-            this.currentDepartment = part;
+            console.log(part)
+            this.currentDepartment = JSON.parse(JSON.stringify(part));
             this.changeNow = true;
+            getStaffByDepartment({department_id:part.Department_id}).then( res => {
+                if(res.status){
+                    this.staffOfCurrentDepartment = res.data;
+                }
+            })
         },
-        submit(){}
+        submit(){
+            console.log(this.currentDepartment.Manager);
+            changeDepartmentInfo({
+                Department_id:this.currentDepartment.Department_id,
+                New_Department_name:this.currentDepartment.Department_name,
+                New_Manager_id:this.currentDepartment.Manager,
+                New_Affairs:this.currentDepartment.Affairs,
+            }).then(res => {
+                if(res.status){
+                    this.successfulTip('部门信息修改成功')
+                    this.cancel();
+                }else{
+                    this.failTip('部门信息修改失败')
+                }
+            })
+        },
+        cancel(){
+            this.currentDepartment = {};
+            this.changeNow = false;
+            this.staffOfCurrentDepartment = [];
+        }
     },
+    mounted(){
+        getDepartmentInfo().then(res => {
+            if(res.status){
+                this.departmentInfo = res.data;
+            }
+        })
+    },
+    computed:{
+        ...mapState(['successfulTip', 'failTip'])
+    }
 }
 </script>
 
@@ -63,8 +99,9 @@ export default {
         display flex
         align-items center
         #infoBox
-            width 55vw
+            width 65vw
             height 100%
+            margin-left 10vw
             display flex
             justify-content space-around
             align-items center
@@ -96,16 +133,16 @@ export default {
                     color #777
                     padding-bottom 10px
         #infoChart
-            height 100%
-            width 22vw
-            margin-left 2vw
-            margin-right 1vw
+            height 70vh
+            width 40vw
             background-color #FFFAFA
+            position fixed
+            left 40vw
             display flex
             flex-direction column
             justify-content space-around
             align-items center
-            #changeBtn
+            .hideBtn
                 background-color #FFE4C4
                 border none
                 height 40px
@@ -115,4 +152,12 @@ export default {
                 cursor pointer
             #managerContainer
                 width 15vw
+            .part
+                display flex
+                width 100%
+                justify-content space-around
+                p,input,select,option
+                    font-size 14px
+                    height 20px
+                    margin 0
 </style>

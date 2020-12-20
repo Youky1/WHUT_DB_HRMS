@@ -12,7 +12,7 @@ export default {
             if(res.status){
                 let source = [];
                 for(let d of res.data){
-                    source.push({name:d.name,'共需要':d.max,'已安排':d.already})
+                    source.push({name:d.Position_name,'共需要':d.Post_number,'已安排':d.Post_already})
                 }
                 console.log(source)
                 let option = {

@@ -93,6 +93,11 @@ function hire(data){
     return postData('hr/hire',JSON.stringify(data))
 }
 
+// 获取某个部门的全部员工
+function getStaffByDepartment(data){
+    return postData('department/staff',JSON.stringify(data))
+}
+
 // 获取全部员工的信息
 function getAllStaffInfo(){
     return getData('hr/staff')
@@ -124,4 +129,5 @@ export{
     manage,
     drawChart,
     getAllStaffInfo,
+    getStaffByDepartment,
 }

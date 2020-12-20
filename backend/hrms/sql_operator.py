@@ -553,7 +553,7 @@ def getDepartmentinfo(db):
             按照传入信息在Department表中更改该条记录
             若Manager_id发生了改变，则在Employee表中更改涉及到的两位员工的position信息
 '''
-def updateDepartment(db,**kwargs):
+def updateDepartment(db,kwargs):
     # 获取Department_info
     department_infos = search_table_info(db, "department")
     department_id_all = [rowdata[0] for rowdata in department_infos]
@@ -732,7 +732,7 @@ def getAllStaff(db):
 返回数据：{'states':True,data:[]}
 data是一个list，里面的每个项是一个字典，代表每一位员工的全部信息（从两个表中获取）
 """
-def getSomeStaff(db, **kwargs):
+def getSomeStaff(db, kwargs):
     # 获取Position_info
     employee_infos = search_table_info(db, "employee")
     # 获取Department_info
@@ -762,71 +762,86 @@ def getSomeStaff(db, **kwargs):
 
 if __name__ == '__main__':
 
-    """ 注册检验 """
-    # if signUpPermissionTest(db, **{"id":'0001','password':'123'}):
-    #     print("该用户名已存在")
+    # """ 注册检验 """
+    # # if signUpPermissionTest(db, **{"id":'0001','password':'123'}):
+    # #     print("该用户名已存在")
 
-    # """ 注册 """
-    # if signUp(db, **{"id":"0001","password":"123","sex":"男","name":"冯永祺","Email":"1242387556@qq.com","phone":"15647894231"}):
-    #     print("插入注册数据成功！！")
-    # else:
-    #     print("插入注册数据失败！")
-    #
-    #
-    # """ 登录 """
-    # if login(db, **{"id":'0001','password':'123'}):
-    #     print("登录成功！")
+    # # """ 注册 """
+    # # if signUp(db, **{"id":"0001","password":"123","sex":"男","name":"冯永祺","Email":"1242387556@qq.com","phone":"15647894231"}):
+    # #     print("插入注册数据成功！！")
+    # # else:
+    # #     print("插入注册数据失败！")
+    # #
+    # #
+    # # """ 登录 """
+    # # if login(db, **{"id":'0001','password':'123'}):
+    # #     print("登录成功！")
 
-    """ 获取个人信息 """
-    data = getUserinfo(db,**{"ID":'0009'})
-    print(data)
+    # """ 获取个人信息 """
+    # data = getUserinfo(db,**{"ID":'0009'})
+    # print(data)
 
-    # """ 修改个人信息 """
-    # if updateinfo(db, **{"id":"0001","sex":"男","name":"冯永祺","Email":"1242387556@qq.com","phone":"15647894231"}):
-    #     print("修改数据成功！")
-    # else:
-    #     print("修改数据失败！")
+    # # """ 修改个人信息 """
+    # # if updateinfo(db, **{"id":"0001","sex":"男","name":"冯永祺","Email":"1242387556@qq.com","phone":"15647894231"}):
+    # #     print("修改数据成功！")
+    # # else:
+    # #     print("修改数据失败！")
 
-    """ 录入新员工 """
-    # testdata = {'Sex': '女', 'Name': 'jany', 'Email': 'com', 'Phone': '910', 'Hire_date': '2020/12/19',
-    #  'Work_experience': [{'Work_experience': '已上班5年', 'Achievement': '暂无'}, {'Work_experience': '阿里上班2年', 'Achievement': '暂无'}, {'Work_experience': '摩拜1个月', 'Achievement': '暂无'}]}
-    # if hire(db, **testdata):
-    #     print("录入成功！")
-    # else:
-    #     print("录入失败")
+    # """ 录入新员工 """
+    # # testdata = {'Sex': '女', 'Name': 'jany', 'Email': 'com', 'Phone': '910', 'Hire_date': '2020/12/19',
+    # #  'Work_experience': [{'Work_experience': '已上班5年', 'Achievement': '暂无'}, {'Work_experience': '阿里上班2年', 'Achievement': '暂无'}, {'Work_experience': '摩拜1个月', 'Achievement': '暂无'}]}
+    # # if hire(db, **testdata):
+    # #     print("录入成功！")
+    # # else:
+    # #     print("录入失败")
 
 
 
-    # """ 增加部门 """
-    # if addDepartment(db,**{'Department_name':'×部门',',Manager_id':'Null',',Affairs':'管理'}):
-    #     print("增加部门成功！")
-    #
-    # """ 删除部门 """
-    # if deleteDepartment( db, **{"Department_name":"×部门"}):
-    #     print("删除部门成功！")
-    #
-    """ 获取部门信息 """
-    getDepartmentinfo(db)
+    # # """ 增加部门 """
+    # # if addDepartment(db,**{'Department_name':'×部门',',Manager_id':'Null',',Affairs':'管理'}):
+    # #     print("增加部门成功！")
+    # #
+    # # """ 删除部门 """
+    # # if deleteDepartment( db, **{"Department_name":"×部门"}):
+    # #     print("删除部门成功！")
+    # #
+    # """ 获取部门信息 """
+    # getDepartmentinfo(db)
 
-    # """ 修改部门信息 """
-    # if updateDepartment(db, **{'Department_id':'1','New_Department_name':'管理部门','New_Manager_id':'0010','New_Affairs':'管理公司日常事务'}):
-    #     print("部门信息修改成功！")
+    # # """ 修改部门信息 """
+    # # if updateDepartment(db, **{'Department_id':'1','New_Department_name':'管理部门','New_Manager_id':'0010','New_Affairs':'管理公司日常事务'}):
+    # #     print("部门信息修改成功！")
 
-    """ 调换职位 """
-    if updateStaffStatus(db, **{"Employee_id":'0001','Department_name':'宣传部门','Position_name':'总经理'}):
-        print("员工职位调整成功！")
+    # """ 调换职位 """
+    # if updateStaffStatus(db, **{"Employee_id":'0001','Department_name':'宣传部门','Position_name':'总经理'}):
+    #     print("员工职位调整成功！")
 
-    """ 为员工分配岗位 """
-    # disTribution(db, **{"Employee_id":'0010','Department_name':'管理部门','Position_name':'总经理'})
+    # """ 为员工分配岗位 """
+    # # disTribution(db, **{"Employee_id":'0010','Department_name':'管理部门','Position_name':'总经理'})
 
-    """ 查询各个岗位 """
-    getPositionInfo(db)
+    # """ 查询各个岗位 """
+    # getPositionInfo(db)
 
-    """ 查询所有员工 """
-    getAllStaff(db)
+    # """ 查询所有员工 """
+    # getAllStaff(db)
 
-    """ 查询某个部门的员工 """
-    getSomeStaff(db, **{'Department_id':'3'})
+    # """ 查询某个部门的员工 """
+    # getSomeStaff(db, **{'Department_id':'3'})
+    update_table_info(db, "position2","Post_number",3,"Position_id",'A1')
+    update_table_info(db, "position2","Post_number",4,"Position_id",'B1')
+    update_table_info(db, "position2","Post_number",5,"Position_id",'C1')
+    update_table_info(db, "position2","Post_number",6,"Position_id",'D1')
+    update_table_info(db, "position2","Post_number",7,"Position_id",'E1')
+    update_table_info(db, "position2","Post_number",8,"Position_id",'F1')
+    update_table_info(db, "position2","Post_number",0,"Position_id",'G1')
+
+    update_table_info(db, "position2","Post_already",1,"Position_id",'A1')
+    update_table_info(db, "position2","Post_already",3,"Position_id",'B1')
+    update_table_info(db, "position2","Post_already",3,"Position_id",'C1')
+    update_table_info(db, "position2","Post_already",6,"Position_id",'D1')
+    update_table_info(db, "position2","Post_already",5,"Position_id",'E1')
+    update_table_info(db, "position2","Post_already",3,"Position_id",'F1')
+    update_table_info(db, "position2","Post_already",0,"Position_id",'G1')
 
 
 

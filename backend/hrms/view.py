@@ -24,7 +24,7 @@ def login(request):
 
 # 信息查询接口
 
-# 获取个人信息+
+# 获取个人信息
 def getUserInfo(request):
     body = getBody(request)
     res = json.dumps(getUserinfo(db,kwargs = body))
@@ -34,26 +34,36 @@ def getUserInfo(request):
 # 获取公司的岗位信息
 def getWageInfo(request):
     res = json.dumps(getPositionInfo(db))
+    print('\nwage info is',res)
     print('res is ',res)
     return HttpResponse(res)
 
 
 #  部门管理接口
 
+
 # 获取部门信息
 def getDepartmentInfo(request):
-    res = json.dumps({
-        'status': True,
-        'data':[{'id':'1','name':'技术部门','managerId':'001','affairs':'技术'},
-                {'id':'2','name':'宣传部门','managerId':'002','affairs':'技术'},
-                {'id':'3','name':'管理部门','managerId':'003','affairs':'技术'},
-                {'id':'4','name':'组织部门','managerId':'004','affairs':'技术'},]
-    })
+    res = json.dumps(getDepartmentinfo(db))
+    print('departmentInfo is',res)
+    return HttpResponse(res)
+
+# 获取某个部门的全部员工
+def getStaffByDepartment(request):
+    body = getBody(request)
+    res = json.dumps(getSomeStaff(db,{'Department_id':body['department_id']}))
+    print('staff in this department is ',res)
     return HttpResponse(res)
 
 # 更改部门信息
 def changeDepartmentInfo(request):
-    pass
+    body = getBody(request)
+    print(body)
+    status = updateDepartment(db,body)
+    res = json.dumps({
+        'status':status
+    })
+    return HttpResponse(res)
 
 
 #  人事管理接口
@@ -67,40 +77,8 @@ def hire(request):
     return HttpResponse(res)
 
 def getAllStaffInfo(request):
-    res = json.dumps({
-        'status':True,
-        'data':[{
-            'id':'01',
-            'name':'youky',
-            'sex':'男',
-            'phone':'15623687738',
-            'email':'youkyf@qq.com',
-            'department':'jsj1803',
-            'position':'student',
-            'hireDate':'2018.9',
-            'experience':[{'description':'小学啊实打实大所大所','grade':90},{'description':'中学','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90}]
-        },{
-            'id':'02',
-            'name':'youky',
-            'sex':'男',
-            'phone':'15623687738',
-            'email':'youkyf@qq.com',
-            'department':'jsj1803',
-            'position':'student',
-            'hireDate':'2018.9',
-            'experience':[{'description':'小学','grade':90},{'description':'中学','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90}]
-        },{
-            'id':'03',
-            'name':'youky',
-            'sex':'男',
-            'phone':'15623687738',
-            'email':'youkyf@qq.com',
-            'department':'jsj1803',
-            'position':'student',
-            'hireDate':'2018.9',
-            'experience':[{'description':'小学','grade':90},{'description':'中学','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90},{'description':'高中','grade':90}]
-        }]
-    })
+    res = json.dumps(getAllStaff(db))
+    print('\nstaff info is ',res)
     return HttpResponse(res)
 
 # 为员工分配岗位
