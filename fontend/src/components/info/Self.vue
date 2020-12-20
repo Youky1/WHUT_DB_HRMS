@@ -1,6 +1,6 @@
 <template>
     <div id="outsideBox">
-        <div id="name"><span class="iconfont iconadmin">{{userInfo.name}}</span></div>
+        <div id="name"><span class="iconfont iconadmin">{{userInfo.Name}}</span></div>
         <div id="container">
             <div class="infoItem" v-for="item in infoToShow" v-bind:key="item[0]">
                 <strong>{{item[0]}}</strong>
@@ -12,9 +12,9 @@
             <div class="listItem" style="border:none">成绩</div>
         </div>
         <div id="experienceList">
-            <div class="experienceItem" v-for="item in userInfo.experience" :key="item.description">
-                <p class="listItem">{{item.description}}</p>
-                <p class="listItem">{{item.grade}}</p>
+            <div class="experienceItem" v-for="item in userInfo.Work_experience" :key="item.description">
+                <p class="listItem">{{item.Work_experience}}</p>
+                <p class="listItem">{{item.Achievement}}</p>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@ import { getUserInfo } from '../../util'
 export default {
     data(){
         return{
-            userInfo:{name:'youky'},
+            userInfo:{Name:''},
         }
     },
     computed:{
@@ -35,7 +35,7 @@ export default {
             return ``
         },
         infoToShow(){
-            let arr = ['sex','phone','email','department','position','hireDate']
+            let arr = ['Sex','Phone','Email','Department_name','Position_name','Hire_date']
             let obj = ['性别','电话','邮箱','部门','职位','招聘日期'];
             let result = []
             for(let index in arr){
@@ -99,7 +99,7 @@ export default {
         #experienceList
             height 100px
             width 45vw
-            overflow-y scroll
+            overflow-y auto
             .experienceItem
                 display flex
         .listItem

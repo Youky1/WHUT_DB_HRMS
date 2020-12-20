@@ -69,8 +69,8 @@ function login(data){
 }
 
 // 获取个人信息
-function getUserInfo(id){
-    return postData('info/user',JSON.stringify({id}))
+function getUserInfo(ID){
+    return postData('info/user',JSON.stringify({ID}))
 }
 
 // 获取公司的职位信息

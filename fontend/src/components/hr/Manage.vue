@@ -8,7 +8,7 @@
                 <div class="td" >邮箱</div>
                 <div class="td" >聘用日期</div>
             </div>
-            <div class="tr" v-for="staff in staffInfo" :key="staff.id" @click="distribute(staff)">
+            <div class="tr" v-for="staff in staffInfo" :key="staff.id" @click="manage(staff)">
                 <div class="td">{{staff.name}}</div>
                 <div class="td">{{staff.sex}}</div>
                 <div class="td">{{staff.phone}}</div>
@@ -18,7 +18,7 @@
         </div>
 
         <!-- 分配选择框 -->
-        <div id="disContainer" v-if="distributeNow">
+        <div id="disContainer" v-if="manageNow">
             <div class="line">
                 <p>部门</p>
                 <select v-model="department">
@@ -32,7 +32,7 @@
                 </select>
             </div>
             <div class="line">
-                <button @click="submitDis">调度</button>
+                <button @click="submitManage">调度</button>
                 <button @click="cancle">取消</button>
             </div>
         </div>
@@ -40,14 +40,14 @@
 </template>
 
 <script>
-import { getAllStaffInfo, getDepartmentInfo, getWageInfo, distribution } from '../../util'
+import { getAllStaffInfo, getDepartmentInfo, getWageInfo, manage } from '../../util'
 export default {
     data(){
         return{
             staffInfo:[],
             departmentInfo:[],
             positionInfo:[],
-            distributeNow:false,
+            manageNow:false,
             currentStaffId:'',
             department:'',
             position:'',
@@ -72,29 +72,29 @@ export default {
 
     },
     methods:{
-        distribute(staff){
+        manage(staff){
             this.currentStaffId = staff.id ;
-            this.distributeNow = true;
+            this.manageNow = true;
         },
-        submitDis(){
-            distribution({
+        submitManage(){
+            manage({
                 user_id:this.currentStaffId,
                 department_id:this.department,
                 position_id:this.position
             }).then(res => {
                 if(res.status){
-                    this.$store.state.successfulTip('分配岗位成功！')
+                    this.$store.state.successfulTip('调度成功！')
                 }else{
-                    this.$store.state.failTip('分配岗位失败')
+                    this.$store.state.failTip('调度失败')
                 }
                 this.cancle();
             }).catch(()=>{
-                this.$store.state.failTip('分配岗位失败');
+                this.$store.state.failTip('调度失败');
                 this.cancle();
             })
         },
         cancle(){
-            this.distributeNow = false;
+            this.manageNow = false;
             this.currentStaffId = '';
             this.department = '';
             this.position = '';
