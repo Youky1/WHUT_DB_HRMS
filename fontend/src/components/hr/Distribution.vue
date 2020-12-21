@@ -2,22 +2,22 @@
     <div id="dBox">
         <div id="container">
             <div class="tr">
-                <div class="td1" >姓名</div>
+                <div class="td2" >姓名</div>
                 <div class="td1" >性别</div>
-                <div class="td2" >电话</div>
-                <div class="td2" >邮箱</div>
-                <div class="td1" >聘用日期</div>
-                <div class="td3" >工作经历</div>
+                <div class="td3" >电话</div>
+                <div class="td4" >邮箱</div>
+                <div class="td3" >聘用日期</div>
+                <div class="td5" >工作经历</div>
             </div>
-            <div class="tr" v-for="staff in staffInfo" :key="staff.id" @click="distribute(staff)">
-                <div class="td1">{{staff.name}}</div>
-                <div class="td1">{{staff.sex}}</div>
-                <div class="td2">{{staff.phone}}</div>
-                <div class="td2">{{staff.email}}</div>
-                <div class="td1">{{staff.hireDate}}</div>
-                <div class="td3">
-                    <p class="ex" v-for="ex in staff.experience" :key="ex.discription">
-                        {{ex.description}}；{{ex.grade}}分
+            <div class="tr" v-for="staff in staffInfo" :key="staff.ID" @click="distribute(staff)">
+                <div class="td2">{{staff.Name}}</div>
+                <div class="td1">{{staff.Sex}}</div>
+                <div class="td3">{{staff.Phone}}</div>
+                <div class="td4">{{staff.Email}}</div>
+                <div class="td3">{{staff.Hire_date}}</div>
+                <div class="td5">
+                    <p class="ex" v-for="ex in staff.Work_experience" :key="ex.Work_experience">
+                        {{ex.Work_experience}}；{{ex.Achievement}}
                     </p>
                 </div>
             </div>
@@ -28,13 +28,19 @@
             <div class="line">
                 <p>部门</p>
                 <select v-model="department">
-                    <option v-for="part in departmentInfo" :key="part.id" :value="part.id">{{part.name}}</option>
+                    <option v-for="part in departmentInfo" 
+                            :key="part.Department_id" 
+                            :value="part.Department_id"
+                    >{{part.Department_name}}</option>
                 </select>
             </div>
             <div class="line">
                 <p>职位</p>
                 <select v-model="position">
-                    <option v-for="position in positionInfo" :key="position.id" :value="position.id">{{position.name}}</option>
+                    <option v-for="position in positionInfo" 
+                            :key="position.Position_id" 
+                            :value="position.Position_id"
+                    >{{position.Position_name}}</option>
                 </select>
             </div>
             <div class="line">
@@ -46,7 +52,7 @@
 </template>
 
 <script>
-import { getAllStaffInfo, getDepartmentInfo, getWageInfo, distribution } from '../../util'
+import { getLeftStaff, getDepartmentInfo, getWageInfo, distribution } from '../../util'
 export default {
     data(){
         return{
@@ -59,42 +65,26 @@ export default {
             position:'',
         }
     },
-    mounted(){
-        getAllStaffInfo().then(res => {
-            if(res.status){
-                this.staffInfo = res.data
-            }
-        });
-        getDepartmentInfo().then(res => {
-            if(res.status){
-                this.departmentInfo = res.data;
-            }
-        });
-        getWageInfo().then(res => {
-            if(res.status){
-                this.positionInfo = res.data
-            }
-        })
-
-    },
     methods:{
         distribute(staff){
-            this.currentStaffId = staff.id ;
+            this.currentStaffId = staff.ID ;
             this.distributeNow = true;
         },
         submitDis(){
             distribution({
-                user_id:this.currentStaffId,
-                department_id:this.department,
-                position_id:this.position
+                ID:this.currentStaffId,
+                Department_id:this.department,
+                Position_id:this.position
             }).then(res => {
                 if(res.status){
                     this.$store.state.successfulTip('分配岗位成功！')
                 }else{
                     this.$store.state.failTip('分配岗位失败')
+                    console.log(res)
                 }
                 this.cancle();
-            }).catch(()=>{
+            }).catch(err=>{
+                console.log(err)
                 this.$store.state.failTip('分配岗位失败');
                 this.cancle();
             })
@@ -105,6 +95,30 @@ export default {
             this.department = '';
             this.position = '';
         },
+    },
+    mounted(){
+        self = this;
+        (async function fn(){
+            await getLeftStaff().then(res => {
+                if(res.status){
+                    self.staffInfo = res.data;
+                }else{
+                    console.log('getAllStaffInfo status false')
+                }
+            }).catch(err => console.log(err))
+            await getDepartmentInfo().then(function(res){
+                if(res.status){
+                    self.departmentInfo = res.data;
+                }else{
+                    console.log('getDepartmentInfo status fail')
+                }
+            }).catch(err => console.log(err))
+            await getWageInfo().then(res => {
+                if(res.status){
+                    self.positionInfo = res.data;
+                }
+            }).catch(err => console.log(err))
+        })()
     }
 }
 </script>
@@ -126,18 +140,30 @@ export default {
         cursor: pointer;
     }
     .td1{
-        width: 40px;
+        width: 20px;
         border-left: 1px solid #777;
         font-size: 10px;
         height: 30px;
     }
     .td2{
-        width: 90px;
+        width: 40px;
         border-left: 1px solid #777;
         font-size: 10px;
         height: 30px;
     }
     .td3{
+        width: 90px;
+        border-left: 1px solid #777;
+        font-size: 10px;
+        height: 30px;
+    }
+    .td4{
+        width: 110px;
+        border-left: 1px solid #777;
+        font-size: 10px;
+        height: 30px;
+    }
+    .td5{
         border-left: 1px solid #777;
         font-size: 10px;
         width: 500px;

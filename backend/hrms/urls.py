@@ -25,7 +25,8 @@ urlpatterns = [
     path('department/change',view.changeDepartmentInfo),
     path('department/staff',view.getStaffByDepartment),
     path('hr/hire',view.hireNewStaff),
-    path('hr/staff',view.getAllStaffInfo),
+    path('hr/staff/yes',view.getAllStaffInfoDistributed),
+    path('hr/staff/no',view.getAllStaffInfoLeft),
     path('hr/distribution',view.distribution),
     path('hr/manage',view.manage),
 ]

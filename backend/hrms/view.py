@@ -78,18 +78,39 @@ def hireNewStaff(request):
     })
     return HttpResponse(res)
 
-def getAllStaffInfo(request):
-    res = json.dumps(getAllStaff(db))
-    print('\nstaff info is ',res)
+# # 查询所有员工的信息
+# def getAllStaffInfo(request):
+#     res = json.dumps(getAllStaff(db))
+#     return HttpResponse(res)
+
+def getAllStaffInfoDistributed(request):
+    '''
+    查询已分配岗位的员工
+    '''
+    res = json.dumps(getAllocated(db))
+    return HttpResponse(res)
+
+def getAllStaffInfoLeft(request):
+    '''
+    查询未分配岗位的员工
+    '''
+    res = json.dumps(getUnallocated(db))
     return HttpResponse(res)
 
 # 为员工分配岗位
 def distribution(request):
+    body = getBody(request)
+    status = disTribution(db,body)
     res = json.dumps({
-        'status': True,
+        'status': status,
     })
     return HttpResponse(res)
 
 # 调整员工的岗位
 def manage(request):
-    pass
+    body = getBody(request)
+    status = updateStaffStatus(db,body)
+    res = json.dumps({
+        'status': status,
+    })
+    return HttpResponse(res)

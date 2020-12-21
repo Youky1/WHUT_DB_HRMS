@@ -371,30 +371,6 @@ def getUserinfo(db,kwargs):
         return {'status':False,'data':{}}
 
 '''
-    修改个人信息
-    传入参数：{id,sex,name,Email,phone}
-    在User_info表中根据id查询到该条记录，并根据传入参数进行更新
-        若更新成果，返回True
-        否则，返回False
-'''
-def updateinfo(db,**kwargs):
-    # 获取user_info
-    user_infos = search_table_info(db, "user_info")
-    account_id_all = [rowdata[0] for rowdata in user_infos]  # 得到用户名
-    for index, account_id in enumerate(account_id_all):
-        if account_id == kwargs['id']:  # 根据id查询到该条记录
-            for i in range(len(user_info)):
-                if user_infos[index][i] == kwargs[user_info[i]]:
-                    continue
-                else:
-                    # 修改数据
-                    if update_table_info(db, "user_info", user_info[i], str(kwargs[user_info[i]]),'id', str(account_id)):
-                        return True
-                    else:
-                        return False
-    return False
-
-'''
     员工录用
     传入参数：{Sex,Name,Email,Phone,Hire_date,Work_experience}，其中Work_experience是list类型
     需要先查employee表，然后为员工分配一个唯一的Employee_id，向Staff表插入一条新纪录，并将其他信息插入Employee表
@@ -421,8 +397,10 @@ def hire(db,kwargs):
     for i in range(len(employee)):
         if i == 0:
             Employee_info[employee[i]] = Employee_id
-        elif i ==1 or i==2:
+        elif i ==1:
             Employee_info[employee[i]] = 0
+        elif i == 2:
+            Employee_info[employee[i]] = 'G1'
         elif i == 3:
             Employee_info[employee[i]] = kwargs[employee[i]]
         else:
@@ -523,7 +501,7 @@ def updateDepartment(db,kwargs):
             4. 若Position_id为部门经理对应的id，则更改department表相应的Manager_id属性
             5. 返回True
 '''
-def updateStaffStatus(db,**kwargs):
+def updateStaffStatus(db,kwargs):
     # 获取员工_info
     employee_infos = search_table_info(db, "employee")
     employee_id_all = [rowdata[0] for rowdata in employee_infos]
@@ -535,7 +513,7 @@ def updateStaffStatus(db,**kwargs):
         if employee_id == kwargs['Employee_id']:  # 根据id查询到该员工
             department_idnow = employee_infos[index][1]
             Position_idnow = employee_infos[index][2]
-            department_id_new,Position_id_new,new_post_already,now_post_already = 0,0,0,0
+            department_id_new,Position_id_new,new_post_already,now_post_already,new_post_num = 0,0,0,0,0
             # 查询到department和Position的id
             for j in range(len(department_infos)):
                 if department_infos[j][1] == kwargs['Department_name']:
@@ -544,28 +522,32 @@ def updateStaffStatus(db,**kwargs):
                 if Position_infos[j][2] == kwargs['Position_name']:
                     Position_id_new = Position_infos[j][0]
                     new_post_already = Position_infos[j][5]
+                    new_post_num = Position_infos[j][4]
                 if Position_infos[j][2] == Position_idnow:
                     now_post_already = Position_infos[j][5]
 
-            if department_id_new == 0 or Position_id_new==0:
+            if int(new_post_already) >= int(new_post_num) :
                 return False
             else:
-                # 接下来判断是否修改
-                if Position_idnow == Position_id_new and department_idnow == department_id_new:
-                    return True
+                if department_id_new == 0 or Position_id_new==0:
+                    return False
                 else:
-                    update_table_info(db, "employee", 'Position_id', Position_id_new, 'Employee_id',employee_id )
-                    update_table_info(db, "employee", 'Department_id', department_id_new, 'Employee_id',employee_id )
-                    update_table_info(db, "position2", 'Post_already', int(now_post_already) - 1, 'Position_id', Position_idnow)
-                    update_table_info(db, "position2", 'Post_already', int(new_post_already) + 1, 'Position_id',Position_id_new)
+                    # 接下来判断是否修改
+                    if Position_idnow == Position_id_new and department_idnow == department_id_new:
+                        return True
+                    else:
+                        update_table_info(db, "employee", 'Position_id', Position_id_new, 'Employee_id',employee_id )
+                        update_table_info(db, "employee", 'Department_id', department_id_new, 'Employee_id',employee_id )
+                        update_table_info(db, "position2", 'Post_already', int(now_post_already) - 1, 'Position_id', Position_idnow)
+                        update_table_info(db, "position2", 'Post_already', int(new_post_already) + 1, 'Position_id',Position_id_new)
 
-                    # 3.若该员工原本的职位为部门经理，则更改department表相应的Manager_id属性     C1是部门经理
-                    if Position_idnow  == 'C1':
-                        update_table_info(db, "department", 'Manager_id', 0000, 'Department_id', department_idnow)
-                    # 4.若Position_id为部门经理对应的id，则更改department表相应的Manager_id属性
-                    if Position_id_new  == 'C1':
-                        update_table_info(db, "department", 'Manager_id', employee_id, 'Department_id', department_id_new)
-                    return True
+                        # 3.若该员工原本的职位为部门经理，则更改department表相应的Manager_id属性     C1是部门经理
+                        if Position_idnow  == 'C1':
+                            update_table_info(db, "department", 'Manager_id', 0000, 'Department_id', department_idnow)
+                        # 4.若Position_id为部门经理对应的id，则更改department表相应的Manager_id属性
+                        if Position_id_new  == 'C1':
+                            update_table_info(db, "department", 'Manager_id', employee_id, 'Department_id', department_id_new)
+                        return True
     return False
 
 
@@ -579,7 +561,8 @@ def updateStaffStatus(db,**kwargs):
             2. 若Position_id为总经理的id则更改department表
             3. 返回True
 '''
-def disTribution(db,**kwargs):
+def disTribution(db,kwargs):
+    print('kwargs is:  ',kwargs)
     # 获取Position_info
     Position_infos = search_table_info(db, "position2")
     Position_id_all = [rowdata[0] for rowdata in Position_infos]
@@ -594,7 +577,7 @@ def disTribution(db,**kwargs):
                 return False
             else:
                 # 1.更改employee表，position表
-                update_table_info(db, "position2", 'Post_already', post_already+1, 'Position_id', Position_id)
+                update_table_info(db, "position2", 'Post_already', int(post_already)+1, 'Position_id', Position_id)
                 for index, employee_id in enumerate(employee_id_all):
                     if employee_id == kwargs['ID']:  # 根据id查询到该员工
                         update_table_info(db, "employee", 'Department_id', kwargs['Department_id'], 'Employee_id', employee_id)
@@ -631,7 +614,6 @@ def getPositionInfo(db):
         return {'status':True,'data':data}
 
 
-
 """
 查询所有员工的信息
 传入参数：无
@@ -646,21 +628,54 @@ def getAllStaff(db):
     else:
         data = []
         for i in range(len(employee_infos)):
-            temp ={}
-            for j in range(len(employee_infos[i])):
-                key = employee[j]
-                if key == 'Position_id':
-                    key = 'Position_name'
-                    position_name = id_name(db,'position2',employee_infos[i][j])
-                    temp[key] = position_name
-                elif  key == 'Department_id':
-                    key = 'Department_name'
-                    department_name = id_name(db,'department',employee_infos[i][j])
-                    temp[key] = department_name
-                else:
-                    temp[key] = employee_infos[i][j]
+            kw ={}
+            kw['ID'] = employee_infos[i][0]
+            temp_dic = getUserinfo(db,kw)
+            temp = temp_dic['data']
             data.append(temp)
         return {'status':True,'data':data}
+
+"""  
+查询已分配员工的信息
+传入参数：无
+返回数据：{'states':True,data:[]}  data是一个list，里面的每个项是一个字典，代表每一位员工的全部信息（从两个表中获取）
+"""
+def getAllocated(db):
+    # 获取Position_info
+    employee_infos = search_table_info(db, "employee")
+    if len(employee_infos) == 0:
+        return {'status': False}
+    else:
+        data = []
+        for i in range(len(employee_infos)):
+            if employee_infos[i][2] == 'G1': continue
+            kw = {}
+            kw['ID'] = employee_infos[i][0]
+            temp_dic = getUserinfo(db, kw)
+            temp = temp_dic['data']
+            data.append(temp)
+        return {'status': True, 'data': data}
+
+"""  
+查询未分配员工的信息
+传入参数：无
+返回数据：{'states':True,data:[]}  data是一个list，里面的每个项是一个字典，代表每一位员工的全部信息（从两个表中获取）
+"""
+def getUnallocated(db):
+    # 获取Position_info
+    employee_infos = search_table_info(db, "employee")
+    if len(employee_infos) == 0:
+        return {'status': False}
+    else:
+        data = []
+        for i in range(len(employee_infos)):
+            if employee_infos[i][2] != 'G1': continue
+            kw = {}
+            kw['ID'] = employee_infos[i][0]
+            temp_dic = getUserinfo(db, kw)
+            temp = temp_dic['data']
+            data.append(temp)
+        return {'status': True, 'data': data}
 
 """
 查询某个部门的员工的信息
@@ -701,7 +716,7 @@ def getSomeStaff(db, kwargs):
         return {'status':True,'data':data}
 
 if __name__ == '__main__':
-    pass
+    print(getAllStaff(db))
     # """ 注册检验 """
     # # if signUpPermissionTest(db, **{"id":'0001','password':'123'}):
     # #     print("该用户名已存在")

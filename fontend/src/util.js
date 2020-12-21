@@ -32,7 +32,7 @@ const postData = (url,data) => {
 // 成功提示
 function successfulTip(content){
     let dom = document.createElement('div');
-    dom.style = `position:fixed;top:100px;left:46vw;font-size:12px;
+    dom.style = `position:fixed;top:50px;left:46vw;font-size:12px;
     height:20px;display:flex;align-item:center`;
     dom.innerHTML = `<span class="iconfont iconchenggong"></span></span>${content}`
     document.body.appendChild(dom)
@@ -44,7 +44,7 @@ function successfulTip(content){
 // 失败提示
 function failTip(content){
     let dom = document.createElement('div');
-    dom.style = `position:fixed;top:100px;left:46vw;font-size:12px;
+    dom.style = `position:fixed;top:50px;left:46vw;font-size:12px;
     height:20px;display:flex;align-item:center`;
     dom.innerHTML = `<span class="iconfont iconshibai"></span></span>${content}`
     document.body.appendChild(dom)
@@ -103,6 +103,20 @@ function getAllStaffInfo(){
     return getData('hr/staff')
 }
 
+/**
+ * 获取已分配岗位的员工信息
+ */
+function getDistributedStaff(){
+    return getData('hr/staff/yes')
+}
+
+/**
+ * 获取未分配岗位的员工信息
+ */
+function getLeftStaff(){
+    return getData('hr/staff/no')
+}
+
 // 为员工分配岗位
 function distribution(data){
     return postData('hr/distribution',JSON.stringify(data))
@@ -130,4 +144,6 @@ export{
     drawChart,
     getAllStaffInfo,
     getStaffByDepartment,
+    getDistributedStaff,
+    getLeftStaff,
 }
