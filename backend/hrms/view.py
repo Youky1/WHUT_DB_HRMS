@@ -28,14 +28,11 @@ def login(request):
 def getUserInfo(request):
     body = getBody(request)
     res = json.dumps(getUserinfo(db,kwargs = body))
-    print('res is ',res)
     return HttpResponse(res)
 
 # 获取公司的岗位信息
 def getWageInfo(request):
     res = json.dumps(getPositionInfo(db))
-    print('\nwage info is',res)
-    print('res is ',res)
     return HttpResponse(res)
 
 
@@ -45,20 +42,17 @@ def getWageInfo(request):
 # 获取部门信息
 def getDepartmentInfo(request):
     res = json.dumps(getDepartmentinfo(db))
-    print('departmentInfo is',res)
     return HttpResponse(res)
 
 # 获取某个部门的全部员工
 def getStaffByDepartment(request):
     body = getBody(request)
     res = json.dumps(getSomeStaff(db,{'Department_id':body['department_id']}))
-    print('staff in this department is ',res)
     return HttpResponse(res)
 
 # 更改部门信息
 def changeDepartmentInfo(request):
     body = getBody(request)
-    print(body)
     status = updateDepartment(db,body)
     res = json.dumps({
         'status':status
@@ -71,7 +65,6 @@ def changeDepartmentInfo(request):
 # 录用员工
 def hireNewStaff(request):
     body = getBody(request)
-    print(body)
     status = hire(db,body)
     res = json.dumps({
         'status':status,

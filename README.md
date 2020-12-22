@@ -58,8 +58,3 @@
   > 主码为Employee_id，一个id对应一个员工
 - experience表：员工的工作经验
   > （ID,description,grade）一个员工ID对应任意条工作经验
-
-## ToDo
-
-- 逻辑测试
-- 清理原始数据

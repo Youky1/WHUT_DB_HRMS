@@ -7,7 +7,7 @@
                 <div class="td" >职位</div>
                 <div class="td" >聘用日期</div>
             </div>
-            <div class="tr" v-for="staff in staffInfo" :key="staff.ID" @click="manage(staff)">
+            <div class="tr" v-for="staff in staffInfo" :key="staff.ID" @click="goManage(staff)">
                 <div class="td">{{staff.Name}}</div>
                 <div class="td">{{staff.Department_name}}</div>
                 <div class="td">{{staff.Position_name}}</div>
@@ -82,7 +82,7 @@ export default {
         })()
     },
     methods:{
-        manage(staff){
+        goManage(staff){
             this.currentStaffId = staff.ID ;
             this.manageNow = true;
         },
@@ -120,7 +120,6 @@ export default {
     #container{
         height: 75vh;
         margin-left: 15vw;
-        margin-top: 2vh;
         overflow-y: auto;
     }
     .tr{

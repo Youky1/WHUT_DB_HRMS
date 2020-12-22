@@ -2,9 +2,9 @@
     <Header>
         <img id="logo" src="../../assets/logo.png">
         <div id="title">人力资源管理系统</div>
-        <a href="#" style="margin-left:350px" @click="logout">注销登录</a>
-        <a href="#" style="margin-left:25px" @click="toChangePassword">修改密码</a>
-        <a href="#" style="margin-left:25px" @click="toChangeInfo">修改个人信息</a>
+        <a href="#" style="margin-left:350px">注销登录</a>
+        <a href="#" style="margin-left:25px">修改密码</a>
+        <a href="#" style="margin-left:25px">修改个人信息</a>
         <div style="position:absolute;right:10vw;">
             <a href="https://github.com/Youky1/WHUT_DB_HRMS" target="_blank">
                 Github
@@ -17,30 +17,6 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-    methods:{
-        logout(){
-            if(this.hasLogin){
-                this.$store.commit('logout');
-                this.$router.replace('/')
-            }else{
-                this.failTip('还未登录哦')
-            }
-        },
-        toChangePassword(){
-            if(this.hasLogin){
-                this.$router.push('/change/password')
-            }else{
-                this.failTip('还未登录哦')
-            }
-        },
-        toChangeInfo(){
-            if(this.hasLogin){
-                this.$router.push('/change/userinfo')
-            }else{
-                this.failTip('还未登录哦')
-            }
-        },
-    },
     computed:{
         ...mapState(['hasLogin','failTip'])
     }

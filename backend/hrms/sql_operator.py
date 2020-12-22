@@ -514,6 +514,7 @@ def updateStaffStatus(db,kwargs):
             department_idnow = employee_infos[index][1]
             Position_idnow = employee_infos[index][2]
             department_id_new,Position_id_new,new_post_already,now_post_already,new_post_num = 0,0,0,0,0
+            print('Position_idnow is: ',Position_idnow)
             # 查询到department和Position的id
             for j in range(len(department_infos)):
                 if department_infos[j][1] == kwargs['Department_name']:
@@ -523,7 +524,8 @@ def updateStaffStatus(db,kwargs):
                     Position_id_new = Position_infos[j][0]
                     new_post_already = Position_infos[j][5]
                     new_post_num = Position_infos[j][4]
-                if Position_infos[j][2] == Position_idnow:
+                if Position_infos[j][0] == Position_idnow:
+                    print('find')
                     now_post_already = Position_infos[j][5]
 
             if int(new_post_already) >= int(new_post_num) :
@@ -536,6 +538,8 @@ def updateStaffStatus(db,kwargs):
                     if Position_idnow == Position_id_new and department_idnow == department_id_new:
                         return True
                     else:
+                        print('update once')
+                        print(int(now_post_already),now_post_already)
                         update_table_info(db, "employee", 'Position_id', Position_id_new, 'Employee_id',employee_id )
                         update_table_info(db, "employee", 'Department_id', department_id_new, 'Employee_id',employee_id )
                         update_table_info(db, "position2", 'Post_already', int(now_post_already) - 1, 'Position_id', Position_idnow)
@@ -716,7 +720,10 @@ def getSomeStaff(db, kwargs):
         return {'status':True,'data':data}
 
 if __name__ == '__main__':
-    print(getAllStaff(db))
+    
+    update_table_info(db, "position2","Post_number",1,"Position_id",'B1')
+
+
     # """ 注册检验 """
     # # if signUpPermissionTest(db, **{"id":'0001','password':'123'}):
     # #     print("该用户名已存在")
