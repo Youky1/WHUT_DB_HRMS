@@ -7,15 +7,30 @@
 
 ## 运行
 
-- backend目录下启动后端服务器:
+### 后端
 
+1. 修改`/backend/hrms/sql_create.py`文件中的数据库信息。默认数据为：
+  - 数据库名：humansource
+  - 用户名：root
+  - 密码：123456
+  - 端口号：6666
+2. 运行`sql_create.py`进行数据库初始化
+  > 仓库中的初始化语句可能被注释，需要先取消注释
+3. 启动后端Django服务器:
+```python
+python manage.py runserver
 ```
-  python manage.py runserver
+
+### 前端
+1. fontend目录下下载依赖：
 ```
-- fontend目录下启动前端服务器:
+npm i
 ```
-  npm run serve
+2. 启动前端服务器:
 ```
+npm run serve
+```
+或运行已打包的文件：`/fontend/dist/index.html`
 
 ## 三大核心功能
 
@@ -30,7 +45,6 @@
   - 录用新员工，录入一系列信息
   - 为录用的员工分配职位
   - 调度员工岗位
-
 
 ## 系统页面
 
