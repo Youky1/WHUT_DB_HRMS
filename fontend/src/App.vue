@@ -65,6 +65,7 @@ export default {
 	html,body
 		margin 0
 		padding 0
+		font-size 16px
 	.v-enter,.v-leave-to
 		opacity 0
 	.v-enter-to,.v-leave

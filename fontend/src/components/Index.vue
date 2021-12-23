@@ -90,13 +90,12 @@ export default {
             .functionTitle
                 text-indent 5px
                 width 100%
-                font-size 14px
+                font-size 18px
                 background-color #eee
                 margin-bottom 5px
             .functionItem
                 cursor pointer
                 width 100%
-                font-size 12px
                 text-indent 15px
                 padding-bottom 10px
                 display flex

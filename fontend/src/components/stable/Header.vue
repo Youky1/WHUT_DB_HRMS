@@ -2,9 +2,6 @@
     <Header>
         <img id="logo" src="../../assets/logo.png">
         <div id="title">人力资源管理系统</div>
-        <a href="#" style="margin-left:350px">注销登录</a>
-        <a href="#" style="margin-left:25px">修改密码</a>
-        <a href="#" style="margin-left:25px">修改个人信息</a>
         <div style="position:absolute;right:10vw;">
             <a href="https://github.com/Youky1/WHUT_DB_HRMS" target="_blank">
                 Github

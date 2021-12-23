@@ -7,5 +7,9 @@ module.exports = {
             maskIcon: 'favicon.ico',
             msTileImage: 'favicon.ico'
         }
-    }
+    },
+    configureWebpack:{
+        devtool:'none',
+    },
+    publicPath:'./',
 }

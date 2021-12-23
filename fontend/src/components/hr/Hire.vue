@@ -132,7 +132,7 @@ export default {
                 border none
             #btnContainer
                 position fixed
-                bottom 60px
+                bottom 200px
                 width 40vw
                 display flex
                 align-items center

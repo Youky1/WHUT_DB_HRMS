@@ -1,7 +1,7 @@
 <template>
     <div id="outsideBox">
         <div id="infoBox">
-            <div class="departmentInfo" v-for="part in departmentInfo" v-bind:key="part.Department_id" @dblclick="changeInfo(part)">
+            <div class="departmentInfo" v-for="part in departmentInfo" v-bind:key="part.Department_id" @click="changeInfo(part)">
                 <div id="line">
                     <p id="name">{{part.Department_name}}</p>
                     <p id="host">主管：<span>{{part.Manager}}</span></p>

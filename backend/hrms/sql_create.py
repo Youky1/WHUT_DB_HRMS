@@ -142,41 +142,41 @@ def update_table_info(db, table,table_head1,head_value1,table_head2,head_value2)
 
 if __name__ == '__main__':
     """ 删除所有的表 """
-    # conn = cur.cursor()  # 创建操作游标
-    # conn.execute("drop table account")
-    # conn.execute("drop table staff")
-    # conn.execute("drop table department")
-    # conn.execute("drop table position2")
-    # conn.execute("drop table user_info")
-    # conn.execute("drop table employee")
-    # # conn.execute("drop table experience")
+    conn = cur.cursor()  # 创建操作游标
+    conn.execute("drop table account")
+    conn.execute("drop table staff")
+    conn.execute("drop table department")
+    conn.execute("drop table position2")
+    conn.execute("drop table user_info")
+    conn.execute("drop table employee")
+    conn.execute("drop table experience")
 
     """ 创建表 """
-    # create_table_head(db,"account", account)  # 创建表
-    # create_table_head(db, "staff", staff)  # 创建表
-    # create_table_head(db, "department", department)  # 创建表
-    # create_table_head(db, "position2", position)  # 创建表
-    # create_table_head(db, "user_info", user_info)  # 创建表
-    # create_table_head(db, "employee", employee)  # 创建表
-    # create_table_head(db, "experience", experience)  # 创建表
+    create_table_head(db,"account", account)  # 创建表
+    create_table_head(db, "staff", staff)  # 创建表
+    create_table_head(db, "department", department)  # 创建表
+    create_table_head(db, "position2", position)  # 创建表
+    create_table_head(db, "user_info", user_info)  # 创建表
+    create_table_head(db, "employee", employee)  # 创建表
+    create_table_head(db, "experience", experience)  # 创建表
 
     """ 插入数据 """
-    # insert_alltable_info(db, "account","SQL_testdata//Account.txt")    # 插入数据
-    # insert_alltable_info(db, "staff", "SQL_testdata//Staff.txt")  # 插入数据
-    # insert_alltable_info(db, "department","SQL_testdata//Department.txt")    # 插入数据
-    # insert_alltable_info(db, "position2","SQL_testdata//Position.txt")    # 插入数据
-    # insert_alltable_info(db, "user_info", "SQL_testdata//user_info.txt")  # 插入数据
-    # insert_alltable_info(db, "employee","SQL_testdata//Employee.txt")    # 插入数据
-    # insert_alltable_info(db, "experience", "SQL_testdata//Experience.txt")  # 插入数据
+    insert_alltable_info(db, "account","SQL_testdata//Account.txt")    # 插入数据
+    insert_alltable_info(db, "staff", "SQL_testdata//Staff.txt")  # 插入数据
+    insert_alltable_info(db, "department","SQL_testdata//Department.txt")    # 插入数据
+    insert_alltable_info(db, "position2","SQL_testdata//Position.txt")    # 插入数据
+    insert_alltable_info(db, "user_info", "SQL_testdata//user_info.txt")  # 插入数据
+    insert_alltable_info(db, "employee","SQL_testdata//Employee.txt")    # 插入数据
+    insert_alltable_info(db, "experience", "SQL_testdata//Experience.txt")  # 插入数据
 
     """ 查询数据 """
-    # searchdata = pysql.search_table_info(db, "account")
+    # searchdata = search_table_info(db, "account")
     # for rowdata in searchdata:
     #     print(rowdata)
 
 
     """ 删除数据 """
-    # pysql.delete_table_info(db, "department", "Department_id", 1)
+    # delete_table_info(db, "department", "Department_id", 1)
 
     # """ 删除表 """
     # conn =  cur.cursor()  # 创建操作游标
@@ -188,13 +188,13 @@ if __name__ == '__main__':
 
 
     """ 更新数据 """
-    # pysql.update_table_info(db, "department","Manager_id",1666,"Manager_id",1124)
+    update_table_info(db, "department","Manager_id",1666,"Manager_id",1124)
 
 
     """ 查询数据 """
-    # searchdata = pysql.search_table_info(db, "department")
-    # for rowdata in searchdata:
-    #     print(rowdata)
+    searchdata = search_table_info(db, "department")
+    for rowdata in searchdata:
+        print(rowdata)
 
 
 

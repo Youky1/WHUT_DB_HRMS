@@ -14,9 +14,6 @@
                 >
             </div>
             <button id="operationBtn" @click="login">登录</button>
-            <div id="findBackPassword">
-                <a href="#">忘记密码？点击找回</a>
-            </div>
         </div>
     </div>
 </template>
@@ -52,8 +49,8 @@ export default {
     },
     data(){
         return{
-            user_id:'',
-            user_password:'',
+            user_id:'0001',
+            user_password:'123456',
         }
     },
     computed:{
@@ -62,7 +59,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
     #totalContainer
         height 75vh
         display flex
@@ -90,9 +87,10 @@ export default {
                 padding-top 10%
                 .infoInputBox
                     width 50%
+                    height: 30px
                     margin-top 5%
                     padding-left 10px
-                    border-radius 10px
+                    border-radius 15px
                     border 1px solid #777
                     outline none
             #operationBtn

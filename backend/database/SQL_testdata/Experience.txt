@@ -1,3 +1,0 @@
-ID,Work_experience,Achievement
-0001,百度工作一年,最卷程序员
-0002,腾讯工作一年,最拼程序员
